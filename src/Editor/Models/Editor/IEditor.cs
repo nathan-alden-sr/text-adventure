@@ -16,7 +16,5 @@ namespace NathanAlden.TextAdventure.Editor.Models.Editor
         IWorld World { get; }
         WorldEditorForm WorldEditorForm { get; }
         bool Exiting { get; }
-
-        void WorldChanged();
     }
 }

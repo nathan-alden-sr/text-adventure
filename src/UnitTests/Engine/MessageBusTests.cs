@@ -1,4 +1,5 @@
-﻿using NathanAlden.TextAdventure.Common.MessageBus;
+﻿using System;
+using NathanAlden.TextAdventure.Common.MessageBus;
 using NSubstitute;
 using NUnit.Framework;
 
@@ -27,24 +28,24 @@ namespace NathanAlden.TextAdventure.UnitTests.Engine
         public void MustInvokeEvents()
         {
             var messageBus = new MessageBus();
-            var messageReceiverSubscribedInvoked = false;
-            var messageReceiverUnsubscribedInvoked = false;
-            var messagePublishingInvoked = false;
-            var messagePublishedInvoked = false;
+            var messageReceiverSubscribedDelegate = Substitute.For<MessageReceiverSubscribedDelegate>();
+            var messageReceiverUnsubscribedDelegate = Substitute.For<MessageReceiverUnsubscribedDelegate>();
+            var messagePublishingDelegate = Substitute.For<MessagePublishingDelegate>();
+            var messagePublishedDelegate = Substitute.For<MessagePublishedDelegate>();
 
-            messageBus.MessageReceiverSubscribed += (receiver, messageType, priority) => { messageReceiverSubscribedInvoked = true; };
-            messageBus.MessageReceiverUnsubscribed += (receiver, messageType) => { messageReceiverUnsubscribedInvoked = true; };
-            messageBus.MessagePublishing += (messageType, message) => { messagePublishingInvoked = true; };
-            messageBus.MessagePublished += (messageType, message) => { messagePublishedInvoked = true; };
+            messageBus.MessageReceiverSubscribed += messageReceiverSubscribedDelegate;
+            messageBus.MessageReceiverUnsubscribed += messageReceiverUnsubscribedDelegate;
+            messageBus.MessagePublishing += messagePublishingDelegate;
+            messageBus.MessagePublished += messagePublishedDelegate;
 
             messageBus.Subscribe(Substitute.For<MessageReceiverDelegate<IMessage>>());
             messageBus.Unsubscribe(Substitute.For<MessageReceiverDelegate<IMessage>>());
             messageBus.Publish(Substitute.For<IMessage>());
 
-            Assert.That(messageReceiverSubscribedInvoked, Is.True);
-            Assert.That(messageReceiverUnsubscribedInvoked, Is.True);
-            Assert.That(messagePublishingInvoked, Is.True);
-            Assert.That(messagePublishedInvoked, Is.True);
+            messageReceiverSubscribedDelegate.Received()(Arg.Any<object>(), Arg.Any<Type>(), Arg.Any<int>());
+            messageReceiverUnsubscribedDelegate.Received()(Arg.Any<object>(), Arg.Any<Type>());
+            messagePublishingDelegate.Received()(Arg.Any<Type>(), Arg.Any<IMessage>());
+            messagePublishedDelegate.Received()(Arg.Any<Type>(), Arg.Any<IMessage>());
         }
 
         [Test]

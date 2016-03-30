@@ -1,21 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using NathanAlden.TextAdventure.Common.Models;
 using Newtonsoft.Json;
 
 namespace NathanAlden.TextAdventure.Models.World
 {
-    public class WorldModel : Model
+    public class WorldModel
     {
         [JsonProperty("id")]
-        public string Id { get; set; }
-
-        [JsonIgnore]
-        public Guid IdAsGuid
-        {
-            get { return Guid.Parse(Id); }
-            set { Id = value.ToString("D"); }
-        }
+        public Guid Id { get; set; }
 
         [JsonProperty("name")]
         public string Name { get; set; }

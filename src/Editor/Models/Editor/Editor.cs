@@ -52,16 +52,6 @@ namespace NathanAlden.TextAdventure.Editor.Models.Editor
         public WorldEditorForm WorldEditorForm { get; }
         public bool Exiting { get; private set; }
 
-        public void WorldChanged()
-        {
-            if (_world != null)
-            {
-                _world.Status = WorldStatus.Changed;
-
-                MessageBus.Publish(new WorldChangedMessage(World));
-            }
-        }
-
         private ReceiveMessageResult ReceiveMessage(WorldCreatingMessage message)
         {
             if (MessageBus.Publish<WorldClosingMessage>() == PublishResult.Canceled)

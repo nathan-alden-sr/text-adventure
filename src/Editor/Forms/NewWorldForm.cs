@@ -31,7 +31,7 @@ namespace NathanAlden.TextAdventure.Editor.Forms
                 ? new WorldModel
                   {
                       Author = _viewModel.Author,
-                      IdAsGuid = _viewModel.IdAsGuid,
+                      Id = _viewModel.IdAsGuid,
                       Name = _viewModel.WorldName,
                       Resources =
                       {
@@ -39,7 +39,7 @@ namespace NathanAlden.TextAdventure.Editor.Forms
                           {
                               new WorldResourceCharactersetModel
                               {
-                                  IdAsGuid = _guidFactory.Random(),
+                                  Id = _guidFactory.Random(),
                                   Name = "standard",
                                   PngBase64 = CharactersetResources.standard.AsBase64Png()
                               }
