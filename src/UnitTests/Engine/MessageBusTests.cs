@@ -1,4 +1,4 @@
-﻿using NathanAlden.TextAdventure.Engine;
+﻿using NathanAlden.TextAdventure.Common.MessageBus;
 using NSubstitute;
 using NUnit.Framework;
 
@@ -8,35 +8,19 @@ namespace NathanAlden.TextAdventure.UnitTests.Engine
     public class MessageBusTests
     {
         [Test]
-        public void MustHonorUnsubscribeRequestsForMessageReceiversWithData()
+        public void MustHonorUnsubscribeRequests()
         {
             var messageBus = new MessageBus();
-            var subscriber = Substitute.For<IMessageReceiver<IMessage<object>, object>>();
+            var receiverDelegate = Substitute.For<MessageReceiverDelegate<IMessage>>();
 
-            messageBus.Subscribe(subscriber);
-            messageBus.Unsubscribe(subscriber);
-
-            var message = Substitute.For<IMessage<object>>();
-
-            messageBus.Publish<IMessage<object>, object>(message);
-
-            subscriber.DidNotReceive().ReceiveMessage(message);
-        }
-
-        [Test]
-        public void MustHonorUnsubscribeRequestsForMessageReceiversWithoutData()
-        {
-            var messageBus = new MessageBus();
-            var subscriber = Substitute.For<IMessageReceiver<IMessage>>();
-
-            messageBus.Subscribe(subscriber);
-            messageBus.Unsubscribe(subscriber);
+            messageBus.Subscribe(receiverDelegate);
+            messageBus.Unsubscribe(receiverDelegate);
 
             var message = Substitute.For<IMessage>();
 
             messageBus.Publish(message);
 
-            subscriber.DidNotReceive().ReceiveMessage(message);
+            receiverDelegate.DidNotReceive()(message);
         }
 
         [Test]
@@ -45,114 +29,63 @@ namespace NathanAlden.TextAdventure.UnitTests.Engine
             var messageBus = new MessageBus();
             var messageReceiverSubscribedInvoked = false;
             var messageReceiverUnsubscribedInvoked = false;
-            var messageWithDataPublishingInvoked = false;
-            var messageWithDataPublishedInvoked = false;
-            var messageWithoutDataPublishingInvoked = false;
-            var messageWithoutDataPublishedInvoked = false;
+            var messagePublishingInvoked = false;
+            var messagePublishedInvoked = false;
 
             messageBus.MessageReceiverSubscribed += (receiver, messageType, priority) => { messageReceiverSubscribedInvoked = true; };
             messageBus.MessageReceiverUnsubscribed += (receiver, messageType) => { messageReceiverUnsubscribedInvoked = true; };
-            messageBus.MessageWithDataPublishing += (messageType, message, data) => { messageWithDataPublishingInvoked = true; };
-            messageBus.MessageWithDataPublished += (messageType, message, data) => { messageWithDataPublishedInvoked = true; };
-            messageBus.MessageWithoutDataPublishing += (messageType, message) => { messageWithoutDataPublishingInvoked = true; };
-            messageBus.MessageWithoutDataPublished += (messageType, message) => { messageWithoutDataPublishedInvoked = true; };
+            messageBus.MessagePublishing += (messageType, message) => { messagePublishingInvoked = true; };
+            messageBus.MessagePublished += (messageType, message) => { messagePublishedInvoked = true; };
 
-            messageBus.Subscribe(Substitute.For<IMessageReceiver<IMessage>>());
-            messageBus.Subscribe(Substitute.For<IMessageReceiver<IMessage<object>, object>>());
-            messageBus.Unsubscribe(Substitute.For<IMessageReceiver<IMessage>>());
-            messageBus.Unsubscribe(Substitute.For<IMessageReceiver<IMessage<object>, object>>());
+            messageBus.Subscribe(Substitute.For<MessageReceiverDelegate<IMessage>>());
+            messageBus.Unsubscribe(Substitute.For<MessageReceiverDelegate<IMessage>>());
             messageBus.Publish(Substitute.For<IMessage>());
-            messageBus.Publish<IMessage<object>, object>(Substitute.For<IMessage<object>, object>());
 
             Assert.That(messageReceiverSubscribedInvoked, Is.True);
             Assert.That(messageReceiverUnsubscribedInvoked, Is.True);
-            Assert.That(messageWithDataPublishingInvoked, Is.True);
-            Assert.That(messageWithDataPublishedInvoked, Is.True);
-            Assert.That(messageWithoutDataPublishingInvoked, Is.True);
-            Assert.That(messageWithoutDataPublishedInvoked, Is.True);
+            Assert.That(messagePublishingInvoked, Is.True);
+            Assert.That(messagePublishedInvoked, Is.True);
         }
 
         [Test]
-        public void MustPublishToCorrectSubscribersForMessageReceiversWithData()
+        public void MustPublishToCorrectSubscribers()
         {
             var messageBus = new MessageBus();
-            var subscriber1 = Substitute.For<IMessageReceiver<IMessage<object>, object>>();
-            var subscriber2 = Substitute.For<IMessageReceiver<IMessage<object>, object>>();
+            var receiverDelegate1 = Substitute.For<MessageReceiverDelegate<IMessage>>();
+            var receiverDelegate2 = Substitute.For<MessageReceiverDelegate<IMessage<object>>>();
 
-            messageBus.Subscribe(subscriber1);
-            messageBus.Subscribe(subscriber2);
-
-            var message = Substitute.For<IMessage<object>>();
-
-            messageBus.Publish<IMessage<object>, object>(message);
-
-            subscriber1.Received().ReceiveMessage(message);
-            subscriber2.DidNotReceive().ReceiveMessage(Arg.Any<IMessage<object>>());
-        }
-
-        [Test]
-        public void MustPublishToCorrectSubscribersForMessageReceiversWithoutData()
-        {
-            var messageBus = new MessageBus();
-            var subscriber1 = Substitute.For<IMessageReceiver<IMessage>>();
-            var subscriber2 = Substitute.For<IMessageReceiver<IMessage>>();
-
-            messageBus.Subscribe(subscriber1);
-            messageBus.Subscribe(subscriber2);
+            messageBus.Subscribe(receiverDelegate1);
+            messageBus.Subscribe(receiverDelegate2);
 
             var message = Substitute.For<IMessage>();
 
             messageBus.Publish(message);
 
-            subscriber1.Received().ReceiveMessage(message);
-            subscriber2.DidNotReceive().ReceiveMessage(Arg.Any<IMessage>());
+            receiverDelegate1.Received()(message);
+            receiverDelegate2.DidNotReceive()(Arg.Any<IMessage<object>>());
         }
 
         [Test]
-        public void MustPublishToSubscribersInPriorityOrderForMessageReceiversWithData()
+        public void MustPublishToSubscribersInPriorityOrder()
         {
             var messageBus = new MessageBus();
-            var subscriber1 = Substitute.For<IMessageReceiver<IMessage<object>, object>>();
-            var subscriber2 = Substitute.For<IMessageReceiver<IMessage<object>, object>>();
-            var message = Substitute.For<IMessage<object>>();
-
-            subscriber1.ReceiveMessage(message).Returns(ReceiveMessageResult.Continue);
-            subscriber2.ReceiveMessage(message).Returns(ReceiveMessageResult.Continue);
-
-            messageBus.Subscribe(subscriber1, 100);
-            messageBus.Subscribe(subscriber2, 200);
-
-            messageBus.Publish<IMessage<object>, object>(message);
-
-            Received.InOrder(
-                () =>
-                {
-                    subscriber2.ReceiveMessage(message);
-                    subscriber1.ReceiveMessage(message);
-                });
-        }
-
-        [Test]
-        public void MustPublishToSubscribersInPriorityOrderForMessageReceiversWithoutData()
-        {
-            var messageBus = new MessageBus();
-            var subscriber1 = Substitute.For<IMessageReceiver<IMessage>>();
-            var subscriber2 = Substitute.For<IMessageReceiver<IMessage>>();
+            var receiverDelegate1 = Substitute.For<MessageReceiverDelegate<IMessage>>();
+            var receiverDelegate2 = Substitute.For<MessageReceiverDelegate<IMessage>>();
             var message = Substitute.For<IMessage>();
 
-            subscriber1.ReceiveMessage(message).Returns(ReceiveMessageResult.Continue);
-            subscriber2.ReceiveMessage(message).Returns(ReceiveMessageResult.Continue);
+            receiverDelegate1(message).Returns(ReceiveMessageResult.Continue);
+            receiverDelegate2(message).Returns(ReceiveMessageResult.Continue);
 
-            messageBus.Subscribe(subscriber1, 100);
-            messageBus.Subscribe(subscriber2, 200);
+            messageBus.Subscribe(receiverDelegate1, 100);
+            messageBus.Subscribe(receiverDelegate2, 200);
 
             messageBus.Publish(message);
 
             Received.InOrder(
                 () =>
                 {
-                    subscriber2.ReceiveMessage(message);
-                    subscriber1.ReceiveMessage(message);
+                    receiverDelegate2(message);
+                    receiverDelegate1(message);
                 });
         }
     }

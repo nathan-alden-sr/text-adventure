@@ -1,8 +1,8 @@
-﻿namespace NathanAlden.TextAdventure.Engine
+﻿namespace NathanAlden.TextAdventure.Common.MessageBus
 {
     public interface IMessage
     {
-        long Id { get; }
+        ulong Id { get; }
     }
 
     public interface IMessage<out TData> : IMessage

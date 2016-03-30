@@ -66,6 +66,14 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Common.WindowsForms\Common.WindowsForms.csproj">
+      <Project>{47637573-db7a-40e7-9fe9-0ec1b40c692e}</Project>
+      <Name>Common.WindowsForms</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Common\Common.csproj">
+      <Project>{4417b4fb-fd94-44de-b6c1-e2b46dfb8572}</Project>
+      <Name>Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Engine.Objects\Engine.Objects.csproj">
       <Project>{ac26fccb-a859-4299-bf99-dafc2bc55ff9}</Project>
       <Name>Engine.Objects</Name>

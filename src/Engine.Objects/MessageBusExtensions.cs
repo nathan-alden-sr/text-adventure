@@ -1,5 +1,6 @@
 ﻿using System;
 using Junior.Common.Net35;
+using NathanAlden.TextAdventure.Common.MessageBus;
 
 namespace NathanAlden.TextAdventure.Engine.Objects
 {
@@ -12,7 +13,7 @@ namespace NathanAlden.TextAdventure.Engine.Objects
             messageBus.ThrowIfNull(nameof(messageBus));
             @delegate.ThrowIfNull(nameof(@delegate));
 
-            if (publishBeforeDelegate != null && messageBus.Publish(publishBeforeDelegate()) == PublishResult.Cancel)
+            if (publishBeforeDelegate != null && messageBus.Publish(publishBeforeDelegate()) == PublishResult.Canceled)
             {
                 return;
             }
@@ -32,7 +33,7 @@ namespace NathanAlden.TextAdventure.Engine.Objects
             messageBus.ThrowIfNull(nameof(messageBus));
             @delegate.ThrowIfNull(nameof(@delegate));
 
-            if (publishBeforeDelegate != null && messageBus.Publish(publishBeforeDelegate()) == PublishResult.Cancel)
+            if (publishBeforeDelegate != null && messageBus.Publish(publishBeforeDelegate()) == PublishResult.Canceled)
             {
                 return;
             }

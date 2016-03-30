@@ -45,25 +45,25 @@
     <Compile Include="IInputHandler.cs" />
     <Compile Include="IBoard.cs" />
     <Compile Include="IJsonSerializable.cs" />
-    <Compile Include="IMessage.cs" />
-    <Compile Include="IMessageReceiver.cs" />
     <Compile Include="InputHandlerResult.cs" />
     <Compile Include="IObjectCollection.cs" />
     <Compile Include="IPlayer.cs" />
+    <Compile Include="IWorldFactory.cs" />
     <Compile Include="KeyHelper.cs" />
-    <Compile Include="MessageBus.cs" />
     <Compile Include="ModifierKey.cs" />
     <Compile Include="IObject.cs" />
     <Compile Include="IWorld.cs" />
     <Compile Include="Key.cs" />
     <Compile Include="ObjectCollection.cs" />
-    <Compile Include="PublishResult.cs" />
-    <Compile Include="ReceiveMessageResult.cs" />
     <Compile Include="Size.cs" />
     <Compile Include="SizeExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Reference Include="CommandLine, Version=2.0.275.0, Culture=neutral, PublicKeyToken=de6f01bd326f8c32, processorArchitecture=MSIL">
+      <HintPath>..\packages\CommandLineParser.2.0.275-beta\lib\net45\CommandLine.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Junior.Common.Net35, Version=7.0.0.0, Culture=neutral, PublicKeyToken=998713eb9a0cce30, processorArchitecture=MSIL">
       <HintPath>..\packages\Junior.Common.Net35.7.0.1\lib\net35\Junior.Common.Net35.dll</HintPath>
       <Private>True</Private>
@@ -84,6 +84,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Common\Common.csproj">
+      <Project>{4417b4fb-fd94-44de-b6c1-e2b46dfb8572}</Project>
+      <Name>Common</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

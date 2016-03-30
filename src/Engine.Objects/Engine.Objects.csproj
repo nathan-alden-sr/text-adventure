@@ -30,11 +30,13 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="..\CommonAssemblyInfo.cs">
+      <Link>Properties\CommonAssemblyInfo.cs</Link>
+    </Compile>
     <Compile Include="Board.cs" />
     <Compile Include="MessageBusExtensions.cs" />
     <Compile Include="Messages\BoardAddedMessage.cs" />
     <Compile Include="Messages\BoardRemovedMessage.cs" />
-    <Compile Include="Messages\Message.cs" />
     <Compile Include="Messages\BoardAddingMessage.cs" />
     <Compile Include="Messages\ObjectAddedMessage.cs" />
     <Compile Include="Messages\ObjectRemovedMessageData.cs" />
@@ -48,12 +50,6 @@
     <Compile Include="Player.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="World.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Engine\Engine.csproj">
-      <Project>{8d1f42b9-417e-4515-a0f9-996e04fdbb7f}</Project>
-      <Name>Engine</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Junior.Common.Net35, Version=7.0.0.0, Culture=neutral, PublicKeyToken=998713eb9a0cce30, processorArchitecture=MSIL">
@@ -76,6 +72,16 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Common\Common.csproj">
+      <Project>{4417b4fb-fd94-44de-b6c1-e2b46dfb8572}</Project>
+      <Name>Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Engine\Engine.csproj">
+      <Project>{8d1f42b9-417e-4515-a0f9-996e04fdbb7f}</Project>
+      <Name>Engine</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

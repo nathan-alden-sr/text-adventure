@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using Junior.Common.Net35;
+using NathanAlden.TextAdventure.Common.MessageBus;
 using NathanAlden.TextAdventure.Engine.Objects.Messages;
 using Newtonsoft.Json.Linq;
 
@@ -11,26 +11,22 @@ namespace NathanAlden.TextAdventure.Engine.Objects
         private readonly HandlerCollection<IInputHandler> _inputHandlers = new HandlerCollection<IInputHandler>();
         private BoardCollection<Board> _boards;
 
-        public World(IGuidFactory guidFactory, string description, Size<int> maximumBoardSize)
+        public World(Guid id, string name, uint engineVersion)
         {
-            guidFactory.ThrowIfNull(nameof(guidFactory));
-            description.ThrowIfNullOrEmpty(nameof(description));
-
-            Id = guidFactory.Random();
-            Description = description;
-            _boards = new BoardCollection<Board>(maximumBoardSize);
-        }
-
-        private World()
-        {
+            Id = id;
+            Name = name;
+            EngineVersion = engineVersion;
         }
 
         public Player Player { get; private set; }
+        public Size<int> MaximumBoardSize => _boards.MaximumBoardSize;
         public MessageBus MessageBus { get; } = new MessageBus();
         public IEnumerable<IBoard> Boards => _boards;
         public IEnumerable<IInputHandler> InputHandlers => _inputHandlers;
-        public Guid Id { get; private set; }
-        public string Description { get; }
+        public Guid Id { get; }
+        public string Description => "World";
+        public string Name { get; }
+        public uint EngineVersion { get; }
         IPlayer IWorld.Player => Player;
 
         public void Prepare()
@@ -42,6 +38,8 @@ namespace NathanAlden.TextAdventure.Engine.Objects
             return new
                    {
                        id = Id,
+                       engineVersion = EngineVersion,
+                       name = Name,
                        boards = _boards.SerializeToJsonObject(),
                        player = Player?.SerializeToJsonObject()
                    };
@@ -75,7 +73,7 @@ namespace NathanAlden.TextAdventure.Engine.Objects
 
         public static World FromJson(JToken jsonObject)
         {
-            var world = new World { Id = (Guid)jsonObject["id"] };
+            var world = new World((Guid)jsonObject["id"], jsonObject.Value<string>("name"), jsonObject.Value<uint>("engineVersion"));
 
             world._boards = BoardCollection<Board>.FromJson(x => Board.FromJson(world, x), jsonObject["boards"]);
             world.Player = jsonObject["player"].HasValues ? Player.FromJson(jsonObject["player"]) : null;

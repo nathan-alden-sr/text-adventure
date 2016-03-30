@@ -1,4 +1,6 @@
-﻿namespace NathanAlden.TextAdventure.Engine.Objects.Messages
+﻿using NathanAlden.TextAdventure.Common.MessageBus;
+
+namespace NathanAlden.TextAdventure.Engine.Objects.Messages
 {
     public class BoardRemovedMessage : Message<IBoard>
     {
