@@ -28,35 +28,37 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.PictureBox pictureBox1;
+            System.Windows.Forms.PictureBox pictureBox;
             System.Windows.Forms.Label label1;
             System.Windows.Forms.Label label2;
             System.Windows.Forms.LinkLabel linkLabel;
             System.Windows.Forms.Panel panel1;
             System.Windows.Forms.Button buttonClose;
             System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
-            pictureBox1 = new System.Windows.Forms.PictureBox();
+            pictureBox = new System.Windows.Forms.PictureBox();
             label1 = new System.Windows.Forms.Label();
             label2 = new System.Windows.Forms.Label();
             linkLabel = new System.Windows.Forms.LinkLabel();
             panel1 = new System.Windows.Forms.Panel();
             buttonClose = new System.Windows.Forms.Button();
             flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
-            ((System.ComponentModel.ISupportInitialize)(pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(pictureBox)).BeginInit();
             panel1.SuspendLayout();
             flowLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
-            // pictureBox1
+            // pictureBox
             // 
-            pictureBox1.Image = global::NathanAlden.TextAdventure.Editor.ImageResources.logo;
-            pictureBox1.Location = new System.Drawing.Point(0, 0);
-            pictureBox1.Margin = new System.Windows.Forms.Padding(0);
-            pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new System.Drawing.Size(80, 80);
-            pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            pictureBox1.TabIndex = 0;
-            pictureBox1.TabStop = false;
+            pictureBox.Cursor = System.Windows.Forms.Cursors.Hand;
+            pictureBox.Image = global::NathanAlden.TextAdventure.Editor.ImageResources.logo;
+            pictureBox.Location = new System.Drawing.Point(0, 0);
+            pictureBox.Margin = new System.Windows.Forms.Padding(0);
+            pictureBox.Name = "pictureBox";
+            pictureBox.Size = new System.Drawing.Size(80, 80);
+            pictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            pictureBox.TabIndex = 0;
+            pictureBox.TabStop = false;
+            pictureBox.Click += new System.EventHandler(this.pictureBox_Click);
             // 
             // label1
             // 
@@ -100,7 +102,7 @@
             panel1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             panel1.Controls.Add(label1);
             panel1.Controls.Add(linkLabel);
-            panel1.Controls.Add(pictureBox1);
+            panel1.Controls.Add(pictureBox);
             panel1.Controls.Add(label2);
             panel1.Location = new System.Drawing.Point(0, 0);
             panel1.Margin = new System.Windows.Forms.Padding(0);
@@ -152,7 +154,7 @@
             this.Padding = new System.Windows.Forms.Padding(15);
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "About";
-            ((System.ComponentModel.ISupportInitialize)(pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(pictureBox)).EndInit();
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
             flowLayoutPanel1.ResumeLayout(false);

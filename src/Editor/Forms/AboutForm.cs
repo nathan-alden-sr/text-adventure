@@ -40,5 +40,10 @@ namespace NathanAlden.TextAdventure.Editor.Forms
         {
             _openGitHubUrlCommand.Execute(Constants.GitHubUrl);
         }
+
+        private void pictureBox_Click(object sender, EventArgs e)
+        {
+            _openGitHubUrlCommand.Execute(Constants.GitHubUrl);
+        }
     }
 }
