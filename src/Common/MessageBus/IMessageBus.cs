@@ -1,22 +1,19 @@
+﻿using System;
+
 namespace NathanAlden.TextAdventure.Common.MessageBus
 {
-    public interface IMessageBus
+    public interface IMessageBus : IDisposable
     {
-        event MessageReceiverSubscribedDelegate MessageReceiverSubscribed;
-        event MessageReceiverUnsubscribedDelegate MessageReceiverUnsubscribed;
-        event MessagePublishingDelegate MessagePublishing;
-        event MessagePublishedDelegate MessagePublished;
+        IDisposable Subscribe<TMessage>(Action<TMessage> messageDelegate)
+            where TMessage : IMessage;
 
-        PublishResult Publish<TMessage>(TMessage message)
-            where TMessage : class, IMessage;
+        void Publish<TMessage>(TMessage message)
+            where TMessage : IMessage;
 
-        PublishResult Publish<TMessage>()
-            where TMessage : class, IMessage, new();
+        void Publish<TMessage>()
+            where TMessage : IMessage, new();
 
-        void Subscribe<TMessage>(MessageReceiverDelegate<TMessage> receiverDelegate, int priority = 0)
-            where TMessage : class, IMessage;
-
-        void Unsubscribe<TMessage>(MessageReceiverDelegate<TMessage> receiverDelegate)
-            where TMessage : class, IMessage;
+        IObservable<TMessage> GetObservable<TMessage>()
+            where TMessage : IMessage;
     }
 }

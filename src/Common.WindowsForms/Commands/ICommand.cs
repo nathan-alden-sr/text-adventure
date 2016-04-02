@@ -4,13 +4,22 @@ using System.Windows.Forms;
 
 namespace NathanAlden.TextAdventure.Common.WindowsForms.Commands
 {
-    public interface ICommand
+    public interface ICommand : IDisposable
     {
-        bool CanExecute(object data = null);
-        void Execute(object data = null);
+        IObservable<object> CanExecuteChanged { get; }
 
-        event EventHandler CanExecuteChanged;
-
+        bool CanExecute();
+        void Execute();
         void AttachToMenuItem(ToolStripMenuItem menuItem, Keys? shortcutKeys = null, string shortcutKeyDisplayString = null, Image image = null);
+    }
+
+    public interface ICommand<in T> : IDisposable
+        where T : class
+    {
+        IObservable<object> CanExecuteChanged { get; }
+
+        bool CanExecute(T data);
+        void Execute(T data);
+        void AttachToMenuItem(ToolStripMenuItem menuItem, Keys? shortcutKeys = null, string shortcutKeyDisplayString = null, Image image = null, T data = null);
     }
 }

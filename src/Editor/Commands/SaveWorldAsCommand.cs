@@ -1,4 +1,5 @@
-﻿using NathanAlden.TextAdventure.Editor.Messages;
+﻿using Junior.Common.Net35;
+using NathanAlden.TextAdventure.Editor.Messages;
 using NathanAlden.TextAdventure.Editor.Models.Editor;
 
 namespace NathanAlden.TextAdventure.Editor.Commands
@@ -12,13 +13,17 @@ namespace NathanAlden.TextAdventure.Editor.Commands
             SubscribeToMessageThatAffectsCanExecute<WorldClosedMessage>();
         }
 
-        protected override bool OnCanExecute(object data = null)
+        protected override bool OnCanExecute()
         {
+            this.ThrowIfDisposed(Disposed);
+
             return Editor.World != null;
         }
 
-        protected override void OnExecute(object data = null)
+        protected override void OnExecute()
         {
+            this.ThrowIfDisposed(Disposed);
+
             Editor.MessageBus.Publish(new WorldSavingMessage(true));
         }
     }

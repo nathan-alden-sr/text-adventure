@@ -1,4 +1,5 @@
-﻿using NathanAlden.TextAdventure.Editor.Models.Editor;
+﻿using Junior.Common.Net35;
+using NathanAlden.TextAdventure.Editor.Models.Editor;
 
 namespace NathanAlden.TextAdventure.Editor.Commands
 {
@@ -9,8 +10,9 @@ namespace NathanAlden.TextAdventure.Editor.Commands
         {
         }
 
-        protected override void OnExecute(object data = null)
+        protected override void OnExecute()
         {
+            this.ThrowIfDisposed(Disposed);
         }
     }
 }

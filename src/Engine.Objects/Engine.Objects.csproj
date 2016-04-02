@@ -34,7 +34,6 @@
       <Link>Properties\CommonAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="Board.cs" />
-    <Compile Include="MessageBusExtensions.cs" />
     <Compile Include="Messages\BoardAddedMessage.cs" />
     <Compile Include="Messages\BoardRemovedMessage.cs" />
     <Compile Include="Messages\BoardAddingMessage.cs" />

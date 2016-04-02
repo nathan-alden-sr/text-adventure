@@ -1,4 +1,5 @@
-﻿using NathanAlden.TextAdventure.Editor.Forms;
+﻿using Junior.Common.Net35;
+using NathanAlden.TextAdventure.Editor.Forms;
 using NathanAlden.TextAdventure.Editor.Models.Editor;
 
 namespace NathanAlden.TextAdventure.Editor.Commands
@@ -10,8 +11,10 @@ namespace NathanAlden.TextAdventure.Editor.Commands
         {
         }
 
-        protected override void OnExecute(object data = null)
+        protected override void OnExecute()
         {
+            this.ThrowIfDisposed(Disposed);
+
             using (var form = Editor.FormFactory.Create<AboutForm>())
             {
                 form.ShowDialog();

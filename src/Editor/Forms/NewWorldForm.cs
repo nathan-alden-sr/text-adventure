@@ -4,23 +4,29 @@ using Junior.Common.Net35;
 using NathanAlden.TextAdventure.Common.WindowsForms;
 using NathanAlden.TextAdventure.Common.WindowsForms.Validation;
 using NathanAlden.TextAdventure.Common.WindowsForms.Validation.Decorators;
+using NathanAlden.TextAdventure.Editor.Models.Editor;
 using NathanAlden.TextAdventure.Editor.ViewModels.NewWorld;
 using NathanAlden.TextAdventure.Models.World;
 
 namespace NathanAlden.TextAdventure.Editor.Forms
 {
-    public partial class NewWorldForm : Form
+    public partial class NewWorldForm : EditorForm
     {
         private readonly IGuidFactory _guidFactory;
         private readonly NewWorldViewModel _viewModel = new NewWorldViewModel();
 
-        public NewWorldForm(IGuidFactory guidFactory)
+        public NewWorldForm(IEditor editor, IGuidFactory guidFactory)
+            : base(editor)
         {
             guidFactory.ThrowIfNull(nameof(guidFactory));
 
             _guidFactory = guidFactory;
 
             InitializeComponent();
+        }
+
+        private NewWorldForm()
+        {
         }
 
         public WorldModel Display(IWin32Window owner)

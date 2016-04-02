@@ -1,110 +1,96 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
+using System.Reactive.Linq;
+using System.Reactive.Subjects;
 using Junior.Common.Net35;
 
 namespace NathanAlden.TextAdventure.Common.MessageBus
 {
     public class MessageBus : IMessageBus
     {
-        private readonly Dictionary<Type, List<IMessageReceiver>> _receiversByMessageType = new Dictionary<Type, List<IMessageReceiver>>();
+        private readonly Dictionary<Type, object> _subjectsByMessageType = new Dictionary<Type, object>();
+        private bool _disposed;
 
-        public event MessageReceiverSubscribedDelegate MessageReceiverSubscribed;
-        public event MessageReceiverUnsubscribedDelegate MessageReceiverUnsubscribed;
-        public event MessagePublishingDelegate MessagePublishing;
-        public event MessagePublishedDelegate MessagePublished;
-
-        public PublishResult Publish<TMessage>(TMessage message)
-            where TMessage : class, IMessage
+        public IDisposable Subscribe<TMessage>(Action<TMessage> messageDelegate)
+            where TMessage : IMessage
         {
-            message.ThrowIfNull(nameof(message));
+            return GetObservable<TMessage>().Subscribe(messageDelegate);
+        }
 
-            List<IMessageReceiver> receivers;
+        public void Publish<TMessage>(TMessage message)
+            where TMessage : IMessage
+        {
+            this.ThrowIfDisposed(_disposed);
+
+            GetSubject<TMessage>().OnNext(message);
+        }
+
+        public void Publish<TMessage>()
+            where TMessage : IMessage, new()
+        {
+            this.ThrowIfDisposed(_disposed);
+
+            Publish(new TMessage());
+        }
+
+        public IObservable<TMessage> GetObservable<TMessage>()
+            where TMessage : IMessage
+        {
+            this.ThrowIfDisposed(_disposed);
+
+            return GetSubject<TMessage>().AsObservable();
+        }
+
+        public void Dispose()
+        {
+            Dispose(false);
+        }
+
+        ~MessageBus()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        private Subject<TMessage> GetSubject<TMessage>()
+            where TMessage : IMessage
+        {
+            this.ThrowIfDisposed(_disposed);
+
             Type messageType = typeof(TMessage);
-            var result = ReceiveMessageResult.Continue;
+            object subject;
+            Subject<TMessage> genericSubject;
 
-            MessagePublishing?.Invoke(messageType, message);
-
-            if (_receiversByMessageType.TryGetValue(typeof(TMessage), out receivers))
+            if (_subjectsByMessageType.TryGetValue(messageType, out subject))
             {
-                // ReSharper disable once LoopCanBeConvertedToQuery
-                foreach (MessageReceiverDelegate<TMessage> receiver in receivers.OrderByDescending(x => x.Priority).Select(x => (MessageReceiverDelegate<TMessage>)x.ReceiverDelegate))
+                genericSubject = (Subject<TMessage>)subject;
+            }
+            else
+            {
+                genericSubject = new Subject<TMessage>();
+                _subjectsByMessageType.Add(messageType, genericSubject);
+            }
+
+            return genericSubject;
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (_disposed)
+            {
+                return;
+            }
+            if (disposing)
+            {
+                foreach (IDisposable subject in _subjectsByMessageType.Values)
                 {
-                    result = receiver(message);
-
-                    if (result == ReceiveMessageResult.Stop)
-                    {
-                        break;
-                    }
+                    subject.Dispose();
                 }
+
+                _subjectsByMessageType.Clear();
             }
 
-            MessagePublished?.Invoke(messageType, message);
-
-            return result == ReceiveMessageResult.Stop ? PublishResult.Canceled : PublishResult.Success;
-        }
-
-        public PublishResult Publish<TMessage>()
-            where TMessage : class, IMessage, new()
-        {
-            return Publish(new TMessage());
-        }
-
-        public void Subscribe<TMessage>(MessageReceiverDelegate<TMessage> receiverDelegate, int priority = 0)
-            where TMessage : class, IMessage
-        {
-            receiverDelegate.ThrowIfNull(nameof(receiverDelegate));
-
-            Type messageType = typeof(TMessage);
-            List<IMessageReceiver> receivers;
-
-            if (!_receiversByMessageType.TryGetValue(messageType, out receivers))
-            {
-                receivers = new List<IMessageReceiver>();
-                _receiversByMessageType.Add(messageType, receivers);
-            }
-            else if (receivers.Any(x => x.ReceiverDelegate == (Delegate)receiverDelegate))
-            {
-                throw new ArgumentException($"Subscriber is already subscribed to message type {messageType.FullName}.", nameof(messageType));
-            }
-
-            receivers.Add(new MessageReceiver(receiverDelegate, priority));
-
-            MessageReceiverSubscribed?.Invoke(receiverDelegate, messageType, priority);
-        }
-
-        public void Unsubscribe<TMessage>(MessageReceiverDelegate<TMessage> receiverDelegate)
-            where TMessage : class, IMessage
-        {
-            receiverDelegate.ThrowIfNull(nameof(receiverDelegate));
-
-            Type messageType = typeof(TMessage);
-            List<IMessageReceiver> receivers;
-
-            if (_receiversByMessageType.TryGetValue(typeof(TMessage), out receivers))
-            {
-                receivers.RemoveAll(x => x.ReceiverDelegate == (Delegate)receiverDelegate);
-            }
-
-            MessageReceiverUnsubscribed?.Invoke(receiverDelegate, messageType);
-        }
-
-        private interface IMessageReceiver
-        {
-            Delegate ReceiverDelegate { get; }
-            int Priority { get; }
-        }
-
-        private class MessageReceiver : IMessageReceiver
-        {
-            public MessageReceiver(Delegate receiverDelegate, int priority)
-            {
-                ReceiverDelegate = receiverDelegate;
-                Priority = priority;
-            }
-
-            public Delegate ReceiverDelegate { get; }
-            public int Priority { get; }
+            _disposed = true;
         }
     }
 }

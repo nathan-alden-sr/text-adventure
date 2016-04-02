@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using NathanAlden.TextAdventure.Common.MessageBus;
-using NathanAlden.TextAdventure.Engine.Objects.Messages;
 using Newtonsoft.Json.Linq;
 
 namespace NathanAlden.TextAdventure.Engine.Objects
@@ -47,18 +46,22 @@ namespace NathanAlden.TextAdventure.Engine.Objects
 
         public void RemoveBoard(Board board)
         {
+            /*
             MessageBus.Execute<BoardRemovingMessage, IBoard, BoardRemovedMessage, IBoard>(
                 () => _boards.Remove(board),
                 () => new BoardRemovingMessage(board),
                 () => new BoardRemovedMessage(board));
+*/
         }
 
         public void AddBoard(Board board)
         {
+            /*
             MessageBus.Execute<BoardAddingMessage, IBoard, BoardAddedMessage, IBoard>(
                 () => _boards.Add(board),
                 () => new BoardAddingMessage(board),
                 () => new BoardAddedMessage(board));
+*/
         }
 
         public bool ContainsBoard(Board board)

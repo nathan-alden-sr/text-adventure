@@ -52,11 +52,13 @@ namespace NathanAlden.TextAdventure.Editor.Models.Editor
         public WorldEditorForm WorldEditorForm { get; }
         public bool Exiting { get; private set; }
 
-        private ReceiveMessageResult ReceiveMessage(WorldCreatingMessage message)
+        private void ReceiveMessage(WorldCreatingMessage message)
         {
-            if (MessageBus.Publish<WorldClosingMessage>() == PublishResult.Canceled)
+            MessageBus.Publish<WorldClosingMessage>();
+
+            if (World != null)
             {
-                return ReceiveMessageResult.Stop;
+                return;
             }
 
             WorldModel model;
@@ -67,16 +69,14 @@ namespace NathanAlden.TextAdventure.Editor.Models.Editor
 
                 if (model == null)
                 {
-                    return ReceiveMessageResult.Stop;
+                    return;
                 }
             }
 
             MessageBus.Publish(new WorldCreatedMessage(model));
-
-            return ReceiveMessageResult.Continue;
         }
 
-        private ReceiveMessageResult ReceiveMessage(WorldCreatedMessage message)
+        private void ReceiveMessage(WorldCreatedMessage message)
         {
             _world = new WorldClass
                      {
@@ -85,22 +85,22 @@ namespace NathanAlden.TextAdventure.Editor.Models.Editor
                      };
 
             MessageBus.Publish(new WorldLoadedMessage(World));
-
-            return ReceiveMessageResult.Continue;
         }
 
-        private ReceiveMessageResult ReceiveMessage(WorldOpeningMessage message)
+        private void ReceiveMessage(WorldOpeningMessage message)
         {
-            if (MessageBus.Publish<WorldClosingMessage>() == PublishResult.Canceled)
+            MessageBus.Publish<WorldClosingMessage>();
+
+            if (World != null)
             {
-                return ReceiveMessageResult.Stop;
+                return;
             }
 
             string path = PromptToOpen();
 
             if (path == null)
             {
-                return ReceiveMessageResult.Stop;
+                return;
             }
 
             _world = new WorldClass
@@ -111,19 +111,13 @@ namespace NathanAlden.TextAdventure.Editor.Models.Editor
                      };
 
             MessageBus.Publish(new WorldLoadedMessage(World));
-
-            return ReceiveMessageResult.Continue;
         }
 
-        private ReceiveMessageResult ReceiveMessage(WorldSavingMessage message)
+        private void ReceiveMessage(WorldSavingMessage message)
         {
-            if (World == null)
+            if (World == null || (World.Status == WorldStatus.Unchanged && !message.SavingAs))
             {
-                return ReceiveMessageResult.Stop;
-            }
-            if (World.Status == WorldStatus.Unchanged && !message.SavingAs)
-            {
-                return ReceiveMessageResult.Continue;
+                return;
             }
 
             string directory = World.Path != null ? Path.GetDirectoryName(World.Path) : FileSystem.WorldDirectory;
@@ -132,7 +126,7 @@ namespace NathanAlden.TextAdventure.Editor.Models.Editor
 
             if (path == null)
             {
-                return ReceiveMessageResult.Stop;
+                return;
             }
 
             JsonUtility.Save(path, World.Model);
@@ -141,52 +135,42 @@ namespace NathanAlden.TextAdventure.Editor.Models.Editor
             _world.Status = WorldStatus.Unchanged;
 
             MessageBus.Publish(new WorldSavedMessage(World));
-
-            return ReceiveMessageResult.Continue;
         }
 
-        private ReceiveMessageResult ReceiveMessage(WorldClosingMessage message)
+        private void ReceiveMessage(WorldClosingMessage message)
         {
-            if (World == null)
+            if (World == null || PromptToSaveChanges() == SaveChangesResult.Stop)
             {
-                return ReceiveMessageResult.Continue;
-            }
-            if (PromptToSaveChanges() == SaveChangesResult.Stop)
-            {
-                return ReceiveMessageResult.Stop;
+                return;
             }
 
             _world = null;
 
             MessageBus.Publish<WorldClosedMessage>();
-
-            return ReceiveMessageResult.Continue;
         }
 
-        private ReceiveMessageResult ReceiveMessage(WorldChangedMessage message)
+        private void ReceiveMessage(WorldChangedMessage message)
         {
             if (World == null)
             {
-                return ReceiveMessageResult.Stop;
+                return;
             }
 
             _world.Status = WorldStatus.Changed;
-
-            return ReceiveMessageResult.Continue;
         }
 
-        private ReceiveMessageResult ReceiveMessage(ExitingMessage message)
+        private void ReceiveMessage(ExitingMessage message)
         {
-            if (MessageBus.Publish<WorldClosingMessage>() == PublishResult.Canceled)
+            MessageBus.Publish<WorldClosingMessage>();
+
+            if (World != null)
             {
-                return ReceiveMessageResult.Stop;
+                return;
             }
 
             Exiting = true;
 
             WorldEditorForm.Close();
-
-            return ReceiveMessageResult.Continue;
         }
 
         private SaveChangesResult PromptToSaveChanges()
@@ -203,9 +187,9 @@ namespace NathanAlden.TextAdventure.Editor.Models.Editor
                 case DialogResult.Cancel:
                     return SaveChangesResult.Stop;
                 case DialogResult.Yes:
-                    PublishResult publishResult = MessageBus.Publish(new WorldSavingMessage(false));
+                    MessageBus.Publish(new WorldSavingMessage(false));
 
-                    return publishResult == PublishResult.Success ? SaveChangesResult.Continue : SaveChangesResult.Stop;
+                    return World.Status == WorldStatus.Unchanged ? SaveChangesResult.Continue : SaveChangesResult.Stop;
                 default:
                     return SaveChangesResult.Continue;
             }

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using Junior.Common.Net35;
-using NathanAlden.TextAdventure.Engine.Objects.Messages;
 using Newtonsoft.Json.Linq;
 
 namespace NathanAlden.TextAdventure.Engine.Objects
@@ -52,18 +51,22 @@ namespace NathanAlden.TextAdventure.Engine.Objects
 
         public void AddObject(IObject @object)
         {
+            /*
             _world.MessageBus.Execute<ObjectAddingMessage, ObjectAddingMessageData, ObjectAddedMessage, ObjectAddedMessageData>(
                 () => _objects.Add(@object),
                 () => new ObjectAddingMessage(new ObjectAddingMessageData(@object, this)),
                 () => new ObjectAddedMessage(new ObjectAddedMessageData(@object, this)));
+*/
         }
 
         public void RemoveObject(IObject @object)
         {
+            /*
             _world.MessageBus.Execute<ObjectRemovingMessage, ObjectRemovingMessageData, ObjectRemovedMessage, ObjectRemovedMessageData>(
                 () => _objects.Add(@object),
                 () => new ObjectRemovingMessage(new ObjectRemovingMessageData(@object, this)),
                 () => new ObjectRemovedMessage(new ObjectRemovedMessageData(@object, this)));
+*/
         }
 
         public bool ContainsObject(IObject @object)
