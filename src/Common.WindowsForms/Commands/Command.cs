@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Drawing;
+using System.Linq;
 using System.Reactive.Linq;
 using System.Reactive.Subjects;
 using System.Windows.Forms;
@@ -10,7 +10,7 @@ namespace NathanAlden.TextAdventure.Common.WindowsForms.Commands
 {
     public abstract class Command : CommandBase, ICommand
     {
-        private readonly List<ToolStripMenuItem> _menuItems = new List<ToolStripMenuItem>();
+        private readonly HashSet<ToolStripItem> _toolStripItems = new HashSet<ToolStripItem>();
         private bool _canExecute = true;
         private Subject<object> CanExecuteChangedSubject { get; } = new Subject<object>();
         public IObservable<object> CanExecuteChanged => CanExecuteChangedSubject.AsObservable();
@@ -42,36 +42,43 @@ namespace NathanAlden.TextAdventure.Common.WindowsForms.Commands
             }
         }
 
-        public void AttachToMenuItem(ToolStripMenuItem menuItem, Keys? shortcutKeys = null, string shortcutKeyDisplayString = null, Image image = null)
+        public ICommand AttachToToolStripItems(IEnumerable<ToolStripItem> toolStripItems)
         {
-            menuItem.ThrowIfNull(nameof(menuItem));
+            toolStripItems = toolStripItems ?? Enumerable.Empty<ToolStripItem>();
 
-            menuItem.Click += MenuItemOnClick;
-            menuItem.Image = image;
-            menuItem.ShortcutKeys = shortcutKeys ?? Keys.None;
-            menuItem.ShortcutKeyDisplayString = shortcutKeyDisplayString;
-            menuItem.Enabled = CanExecute();
+            foreach (ToolStripItem toolStripItem in toolStripItems)
+            {
+                toolStripItem.Click += ToolStripItemOnClick;
+                toolStripItem.Enabled = CanExecute();
 
-            _menuItems.Add(menuItem);
+                _toolStripItems.Add(toolStripItem);
 
-            AddSubscriptions(CanExecuteChangedSubject.Subscribe(x => menuItem.Enabled = CanExecute()));
+                AddSubscriptions(CanExecuteChangedSubject.Subscribe(x => toolStripItem.Enabled = CanExecute()));
+            }
+
+            return this;
+        }
+
+        public ICommand AttachToToolStripItems(params ToolStripItem[] toolStripItems)
+        {
+            return AttachToToolStripItems((IEnumerable<ToolStripItem>)toolStripItems);
         }
 
         protected override void Dispose(bool disposing)
         {
             if (disposing)
             {
-                foreach (ToolStripMenuItem menuItem in _menuItems)
+                foreach (ToolStripItem toolStripItem in _toolStripItems)
                 {
-                    menuItem.Click -= MenuItemOnClick;
+                    toolStripItem.Click -= ToolStripItemOnClick;
                 }
-                _menuItems.Clear();
+                _toolStripItems.Clear();
             }
 
             base.Dispose(disposing);
         }
 
-        protected override void MenuItemOnClick(object sender, EventArgs eventArgs)
+        protected override void ToolStripItemOnClick(object sender, EventArgs eventArgs)
         {
             Execute();
         }
@@ -89,15 +96,14 @@ namespace NathanAlden.TextAdventure.Common.WindowsForms.Commands
         }
     }
 
-    public abstract class Command<T> : CommandBase, ICommand<T>
-        where T : class
+    public abstract class Command<TData> : CommandBase, ICommand<TData>
     {
-        private readonly List<ToolStripMenuItem> _menuItems = new List<ToolStripMenuItem>();
+        private readonly HashSet<ToolStripItem> _toolStripItems = new HashSet<ToolStripItem>();
         private bool _canExecute = true;
         private Subject<object> CanExecuteChangedSubject { get; } = new Subject<object>();
         public IObservable<object> CanExecuteChanged => CanExecuteChangedSubject.AsObservable();
 
-        public bool CanExecute(T data)
+        public bool CanExecute(TData data)
         {
             this.ThrowIfDisposed(Disposed);
 
@@ -114,22 +120,7 @@ namespace NathanAlden.TextAdventure.Common.WindowsForms.Commands
             return canExecute;
         }
 
-        public void AttachToMenuItem(ToolStripMenuItem menuItem, Keys? shortcutKeys = null, string shortcutKeyDisplayString = null, Image image = null, T data = null)
-        {
-            menuItem.ThrowIfNull(nameof(menuItem));
-
-            menuItem.Click += MenuItemOnClick;
-            menuItem.Image = image;
-            menuItem.ShortcutKeys = shortcutKeys ?? Keys.None;
-            menuItem.ShortcutKeyDisplayString = shortcutKeyDisplayString;
-            menuItem.Enabled = CanExecute(data);
-
-            _menuItems.Add(menuItem);
-
-            AddSubscriptions(CanExecuteChangedSubject.Subscribe(x => menuItem.Enabled = CanExecute((T)menuItem.Tag)));
-        }
-
-        public void Execute(T data)
+        public void Execute(TData data)
         {
             this.ThrowIfDisposed(Disposed);
 
@@ -139,33 +130,55 @@ namespace NathanAlden.TextAdventure.Common.WindowsForms.Commands
             }
         }
 
+        public ICommand<TData> AttachToToolStripItems(IEnumerable<ToolStripItem> toolStripItems, TData data)
+        {
+            toolStripItems = toolStripItems ?? Enumerable.Empty<ToolStripItem>();
+
+            foreach (ToolStripItem toolStripItem in toolStripItems)
+            {
+                toolStripItem.Click += ToolStripItemOnClick;
+                toolStripItem.Enabled = CanExecute(data);
+
+                _toolStripItems.Add(toolStripItem);
+
+                AddSubscriptions(CanExecuteChangedSubject.Subscribe(x => toolStripItem.Enabled = CanExecute((TData)toolStripItem.Tag)));
+            }
+
+            return this;
+        }
+
+        public ICommand<TData> AttachToToolStripItems(TData data, params ToolStripItem[] toolStripItems)
+        {
+            return AttachToToolStripItems(toolStripItems, data);
+        }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)
             {
-                foreach (ToolStripMenuItem menuItem in _menuItems)
+                foreach (ToolStripItem toolStripItem in _toolStripItems)
                 {
-                    menuItem.Click -= MenuItemOnClick;
+                    toolStripItem.Click -= ToolStripItemOnClick;
                 }
-                _menuItems.Clear();
+                _toolStripItems.Clear();
             }
 
             base.Dispose(disposing);
         }
 
-        protected override void MenuItemOnClick(object sender, EventArgs eventArgs)
+        protected override void ToolStripItemOnClick(object sender, EventArgs eventArgs)
         {
-            Execute((T)((ToolStripMenuItem)sender).Tag);
+            Execute((TData)((ToolStripItem)sender).Tag);
         }
 
-        protected virtual bool OnCanExecute(T data)
+        protected virtual bool OnCanExecute(TData data)
         {
             this.ThrowIfDisposed(Disposed);
 
             return true;
         }
 
-        protected virtual void OnExecute(T data)
+        protected virtual void OnExecute(TData data)
         {
             this.ThrowIfDisposed(Disposed);
         }

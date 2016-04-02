@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows.Forms;
+using NathanAlden.TextAdventure.Common.WindowsForms.Commands;
 using NathanAlden.TextAdventure.Editor.Commands;
 using NathanAlden.TextAdventure.Editor.Messages;
 using NathanAlden.TextAdventure.Editor.Models.Editor;
@@ -8,7 +9,7 @@ namespace NathanAlden.TextAdventure.Editor.Forms
 {
     public partial class WorldEditorForm : EditorForm
     {
-        private ExitCommand _exitCommand;
+        private ICommand _exitCommand;
 
         public WorldEditorForm(IEditor editor)
             : base(editor)
@@ -23,14 +24,14 @@ namespace NathanAlden.TextAdventure.Editor.Forms
         protected override void OnLoad(EventArgs e)
         {
             AddDisposables(
-                Editor.CommandFactory.CreateAndAttachToMenuItem<NewWorldCommand>(newWorldToolStripMenuItem, Keys.Control | Keys.N, image:IconResources.Create_16x),
-                Editor.CommandFactory.CreateAndAttachToMenuItem<OpenWorldCommand>(openWorldToolStripMenuItem, Keys.Control | Keys.O, image:IconResources.Open_16x),
-                Editor.CommandFactory.CreateAndAttachToMenuItem<CloseWorldCommand>(closeWorldToolStripMenuItem),
-                Editor.CommandFactory.CreateAndAttachToMenuItem<SaveWorldCommand>(saveWorldToolStripMenuItem, Keys.Control | Keys.S, image:IconResources.Save_16x),
-                Editor.CommandFactory.CreateAndAttachToMenuItem<SaveWorldAsCommand>(saveWorldAsToolStripMenuItem),
-                _exitCommand = Editor.CommandFactory.CreateAndAttachToMenuItem<ExitCommand>(exitToolStripMenuItem, shortcutKeyDisplayString:"Alt+F4"),
-                Editor.CommandFactory.CreateAndAttachToMenuItem<OptionsCommand>(optionsToolStripMenuItem),
-                Editor.CommandFactory.CreateAndAttachToMenuItem<AboutCommand>(aboutToolStripMenuItem),
+                Editor.CommandFactory.Create<NewWorldCommand>().AttachToToolStripItems(toolStripMenuItemNewWorld, toolStripButtonNewWorld),
+                Editor.CommandFactory.Create<OpenWorldCommand>().AttachToToolStripItems(toolStripMenuItemOpenWorld, toolStripButtonOpenWorld),
+                Editor.CommandFactory.Create<CloseWorldCommand>().AttachToToolStripItems(toolStripMenuItemCloseWorld),
+                Editor.CommandFactory.Create<SaveWorldCommand>().AttachToToolStripItems(toolStripMenuItemSaveWorld, toolStripButtonSaveWorld),
+                Editor.CommandFactory.Create<SaveWorldAsCommand>().AttachToToolStripItems(toolStripMenuItemSaveWorldAs),
+                _exitCommand = Editor.CommandFactory.Create<ExitCommand>().AttachToToolStripItems(toolStripMenuItemExit),
+                Editor.CommandFactory.Create<OptionsCommand>().AttachToToolStripItems(toolStripMenuItemOptions),
+                Editor.CommandFactory.Create<AboutCommand>().AttachToToolStripItems(toolStripMenuItemAbout),
                 Editor.MessageBus.Subscribe<WorldLoadedMessage>(ReceiveMessage),
                 Editor.MessageBus.Subscribe<WorldClosedMessage>(ReceiveMessage),
                 Editor.MessageBus.Subscribe<WorldSavedMessage>(ReceiveMessage),

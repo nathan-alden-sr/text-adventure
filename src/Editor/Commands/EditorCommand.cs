@@ -26,8 +26,7 @@ namespace NathanAlden.TextAdventure.Editor.Commands
         }
     }
 
-    public abstract class EditorCommand<T> : Command<T>
-        where T : class
+    public abstract class EditorCommand<TData> : Command<TData>
     {
         protected EditorCommand(IEditor editor)
         {
@@ -38,7 +37,7 @@ namespace NathanAlden.TextAdventure.Editor.Commands
 
         public IEditor Editor { get; }
 
-        public void SubscribeToMessageThatAffectsCanExecute<TMessage>(Func<T> dataDelegate)
+        public void SubscribeToMessageThatAffectsCanExecute<TMessage>(Func<TData> dataDelegate)
             where TMessage : class, IMessage
         {
             this.ThrowIfDisposed(Disposed);

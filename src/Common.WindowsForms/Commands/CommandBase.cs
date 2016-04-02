@@ -47,6 +47,6 @@ namespace NathanAlden.TextAdventure.Common.WindowsForms.Commands
             Disposed = true;
         }
 
-        protected abstract void MenuItemOnClick(object sender, EventArgs eventArgs);
+        protected abstract void ToolStripItemOnClick(object sender, EventArgs eventArgs);
     }
 }

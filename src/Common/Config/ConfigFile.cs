@@ -5,10 +5,10 @@ using Newtonsoft.Json;
 
 namespace NathanAlden.TextAdventure.Common.Config
 {
-    public class ConfigFile<T> : IConfigFile<T>
-        where T : class, new()
+    public class ConfigFile<TConfig> : IConfigFile<TConfig>
+        where TConfig : class, new()
     {
-        private readonly Lazy<T> _config;
+        private readonly Lazy<TConfig> _config;
         private readonly string _path;
 
         public ConfigFile(string path)
@@ -16,10 +16,10 @@ namespace NathanAlden.TextAdventure.Common.Config
             path.ThrowIfNull(nameof(path));
 
             _path = path;
-            _config = new Lazy<T>(() => File.Exists(_path) ? JsonConvert.DeserializeObject<T>(File.ReadAllText(_path)) : new T());
+            _config = new Lazy<TConfig>(() => File.Exists(_path) ? JsonConvert.DeserializeObject<TConfig>(File.ReadAllText(_path)) : new TConfig());
         }
 
-        public T Config => _config.Value;
+        public TConfig Config => _config.Value;
 
         public void Save()
         {

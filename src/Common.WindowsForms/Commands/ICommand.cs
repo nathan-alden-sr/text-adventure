@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Drawing;
+using System.Collections.Generic;
 using System.Windows.Forms;
 
 namespace NathanAlden.TextAdventure.Common.WindowsForms.Commands
@@ -10,16 +10,17 @@ namespace NathanAlden.TextAdventure.Common.WindowsForms.Commands
 
         bool CanExecute();
         void Execute();
-        void AttachToMenuItem(ToolStripMenuItem menuItem, Keys? shortcutKeys = null, string shortcutKeyDisplayString = null, Image image = null);
+        ICommand AttachToToolStripItems(IEnumerable<ToolStripItem> toolStripItems);
+        ICommand AttachToToolStripItems(params ToolStripItem[] toolStripItems);
     }
 
-    public interface ICommand<in T> : IDisposable
-        where T : class
+    public interface ICommand<in TData> : IDisposable
     {
         IObservable<object> CanExecuteChanged { get; }
 
-        bool CanExecute(T data);
-        void Execute(T data);
-        void AttachToMenuItem(ToolStripMenuItem menuItem, Keys? shortcutKeys = null, string shortcutKeyDisplayString = null, Image image = null, T data = null);
+        bool CanExecute(TData data);
+        void Execute(TData data);
+        ICommand<TData> AttachToToolStripItems(IEnumerable<ToolStripItem> toolStripItems, TData data);
+        ICommand<TData> AttachToToolStripItems(TData data, params ToolStripItem[] toolStripItems);
     }
 }
