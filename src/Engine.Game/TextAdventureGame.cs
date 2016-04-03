@@ -22,8 +22,7 @@ namespace NathanAlden.TextAdventure.Engine.Game
 
         public TextAdventureGame(WorldDirectory worldDirectory)
         {
-            _worldDirectory = worldDirectory;
-            worldDirectory.ThrowIfNull(nameof(worldDirectory));
+            _worldDirectory = worldDirectory.EnsureNotNull(nameof(worldDirectory));
 
             _graphics = new GraphicsDeviceManager(this);
             _world = worldDirectory.CreateWorld();

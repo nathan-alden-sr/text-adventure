@@ -38,6 +38,8 @@
     <Compile Include="World\WorldModel.cs" />
     <Compile Include="World\WorldResourceCharactersetModel.cs" />
     <Compile Include="World\WorldResourcesModel.cs" />
+    <Compile Include="World\WorldVariableModel.cs" />
+    <Compile Include="World\WorldVariableType.cs" />
     <Compile Include="World\WorldVersionsModel.cs" />
   </ItemGroup>
   <ItemGroup>

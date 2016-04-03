@@ -83,9 +83,29 @@ namespace NathanAlden.TextAdventure.Editor {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Edit_16x {
+            get {
+                object obj = ResourceManager.GetObject("Edit_16x", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Open_16x {
             get {
                 object obj = ResourceManager.GetObject("Open_16x", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Remove_16x {
+            get {
+                object obj = ResourceManager.GetObject("Remove_16x", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -106,6 +126,16 @@ namespace NathanAlden.TextAdventure.Editor {
         internal static System.Drawing.Bitmap StatusCriticalError_16x {
             get {
                 object obj = ResourceManager.GetObject("StatusCriticalError_16x", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap VariableProperty_16x {
+            get {
+                object obj = ResourceManager.GetObject("VariableProperty_16x", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

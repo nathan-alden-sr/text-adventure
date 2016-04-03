@@ -7,14 +7,11 @@ namespace NathanAlden.TextAdventure.Editor.Configuration
     {
         public Config()
         {
-            WindowLocations.WorldEditor.Bounds = new Rectangle(0, 0, 800, 600);
+            Views.World.Bounds.Size = new Size(800, 600);
         }
 
-        [JsonProperty("windowLocations")]
-        public WindowLocations WindowLocations { get; } = new WindowLocations();
-
-        [JsonProperty("windowDefaults")]
-        public WindowDefaults WindowDefaults { get; } = new WindowDefaults();
+        [JsonProperty("views")]
+        public Views Views { get; } = new Views();
 
         [JsonProperty("fileSystem")]
         public FileSystem FileSystem { get; } = new FileSystem();

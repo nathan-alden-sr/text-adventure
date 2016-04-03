@@ -7,11 +7,8 @@ namespace NathanAlden.TextAdventure.Engine
     {
         public KeyHelper(IEnumerable<Key> keys, IEnumerable<ModifierKey> modifierKeys)
         {
-            keys.ThrowIfNull(nameof(keys));
-            modifierKeys.ThrowIfNull(nameof(modifierKeys));
-
-            Keys = keys;
-            ModifierKeys = modifierKeys;
+            Keys = keys.EnsureNotNull(nameof(keys));
+            ModifierKeys = modifierKeys.EnsureNotNull(nameof(modifierKeys));
         }
 
         public IEnumerable<Key> Keys { get; }

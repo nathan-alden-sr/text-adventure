@@ -1,9 +1,11 @@
-﻿using System.Reflection;
-using System.Windows.Forms;
+﻿using System.IO;
+using System.Reflection;
 using Autofac;
 using Junior.Common.Net35;
-using NathanAlden.TextAdventure.Common.WindowsForms.Commands;
-using NathanAlden.TextAdventure.Editor.Models.Editor;
+using NathanAlden.TextAdventure.Common.Config;
+using NathanAlden.TextAdventure.Common.MessageBus;
+using NathanAlden.TextAdventure.Editor.Configuration;
+using NathanAlden.TextAdventure.Editor.Factories;
 
 namespace NathanAlden.TextAdventure.Editor.Ioc
 {
@@ -15,31 +17,36 @@ namespace NathanAlden.TextAdventure.Editor.Ioc
         {
             containerBuilder.ThrowIfNull(nameof(containerBuilder));
 
-            RegisterCommands(containerBuilder);
             RegisterCommon(containerBuilder);
-            RegisterEditor(containerBuilder);
-            RegisterForms(containerBuilder);
-        }
-
-        private static void RegisterCommands(ContainerBuilder containerBuilder)
-        {
-            containerBuilder.RegisterAssemblyTypes(_programAssembly).Where(x => x.ImplementsInterface<ICommand>()).AsSelf().SingleInstance();
+            RegisterControllers(containerBuilder);
+            RegisterViews(containerBuilder);
         }
 
         private static void RegisterCommon(ContainerBuilder containerBuilder)
         {
             containerBuilder.RegisterType<GuidFactory>().As<IGuidFactory>().SingleInstance();
             containerBuilder.RegisterType<SystemClock>().As<ISystemClock>().SingleInstance();
+            containerBuilder.RegisterInstance(new ConfigFile<Config>(Path.Combine(Constants.RootDirectory, "config.json"))).As<IConfigFile<Config>>().SingleInstance();
+            containerBuilder.RegisterType<FileSystem>().As<IFileSystem>().SingleInstance();
+            containerBuilder.RegisterType<MessageBus>().As<IMessageBus>().SingleInstance();
+            containerBuilder.RegisterType<ViewFactory>().As<IViewFactory>().SingleInstance();
         }
 
-        private static void RegisterEditor(ContainerBuilder containerBuilder)
+        private static void RegisterControllers(ContainerBuilder containerBuilder)
         {
-            containerBuilder.RegisterType<Models.Editor.Editor>().As<IEditor>().SingleInstance();
+            containerBuilder.RegisterType<ControllerFactory>().As<IControllerFactory>().SingleInstance();
+            RegisterSuffixInProgramAssembly(containerBuilder, "Controller");
         }
 
-        private static void RegisterForms(ContainerBuilder containerBuilder)
+        private static void RegisterViews(ContainerBuilder containerBuilder)
         {
-            containerBuilder.RegisterAssemblyTypes(_programAssembly).Where(x => x.IsSubclassOf(typeof(Form))).AsSelf();
+            containerBuilder.RegisterType<ViewFactory>().As<IViewFactory>().SingleInstance();
+            RegisterSuffixInProgramAssembly(containerBuilder, "View");
+        }
+
+        private static void RegisterSuffixInProgramAssembly(ContainerBuilder containerBuilder, string suffix)
+        {
+            containerBuilder.RegisterAssemblyTypes(_programAssembly).Where(x => x.Name.EndsWith(suffix)).AsImplementedInterfaces();
         }
     }
 }

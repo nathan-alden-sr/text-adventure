@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Windows.Forms;
 using Autofac;
+using NathanAlden.TextAdventure.Editor.Controllers.World;
 using NathanAlden.TextAdventure.Editor.Ioc;
-using NathanAlden.TextAdventure.Editor.Models.Editor;
 
 namespace NathanAlden.TextAdventure.Editor
 {
@@ -19,9 +19,9 @@ namespace NathanAlden.TextAdventure.Editor
             AutofacRegistry.RegisterComponents(containerBuilder);
 
             IContainer container = containerBuilder.Build();
-            var editor = container.Resolve<IEditor>();
+            var worldController = container.Resolve<IWorldController>();
 
-            Application.Run(editor.WorldEditorForm);
+            worldController.ShowView();
         }
     }
 }

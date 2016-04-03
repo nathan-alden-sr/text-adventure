@@ -13,9 +13,7 @@ namespace NathanAlden.TextAdventure.Common.Config
 
         public ConfigFile(string path)
         {
-            path.ThrowIfNull(nameof(path));
-
-            _path = path;
+            _path = path.EnsureNotNull(nameof(path));
             _config = new Lazy<TConfig>(() => File.Exists(_path) ? JsonConvert.DeserializeObject<TConfig>(File.ReadAllText(_path)) : new TConfig());
         }
 

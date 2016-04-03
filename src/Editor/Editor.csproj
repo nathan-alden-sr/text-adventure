@@ -39,53 +39,64 @@
     <Compile Include="..\CommonAssemblyInfo.cs">
       <Link>Properties\CommonAssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="Commands\AboutCommand.cs" />
-    <Compile Include="Commands\EditorCommand.cs" />
-    <Compile Include="Commands\OpenGitHubUrlCommand.cs" />
-    <Compile Include="Commands\OpenWorldCommand.cs" />
-    <Compile Include="Commands\OptionsCommand.cs" />
-    <Compile Include="Commands\SaveWorldAsCommand.cs" />
-    <Compile Include="Commands\SaveWorldCommand.cs" />
-    <Compile Include="Commands\ExitCommand.cs" />
     <Compile Include="Configuration\FileSystem.cs" />
-    <Compile Include="Factories\CommandFactory.cs" />
-    <Compile Include="Factories\ICommandFactory.cs" />
-    <Compile Include="Forms\EditorForm.cs">
+    <Compile Include="Configuration\NewWorldView.cs" />
+    <Compile Include="Configuration\Views.cs" />
+    <Compile Include="Configuration\WorldVariablesView.cs" />
+    <Compile Include="Configuration\WorldView.cs" />
+    <Compile Include="Controllers\About\AboutController.cs" />
+    <Compile Include="Controllers\About\AboutView.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Controllers\About\AboutView.Designer.cs">
+      <DependentUpon>AboutView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controllers\About\IAboutController.cs" />
+    <Compile Include="Controllers\About\IAboutView.cs" />
+    <Compile Include="Controllers\Controller.cs" />
+    <Compile Include="Controllers\FormView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Controllers\IView.cs" />
+    <Compile Include="Controllers\NewWorld\INewWorldController.cs" />
+    <Compile Include="Controllers\NewWorld\INewWorldView.cs" />
+    <Compile Include="Controllers\NewWorld\NewWorldController.cs" />
+    <Compile Include="Controllers\NewWorld\NewWorldView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Controllers\NewWorld\NewWorldView.Designer.cs">
+      <DependentUpon>NewWorldView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controllers\WorldVariables\IWorldVariablesController.cs" />
+    <Compile Include="Controllers\WorldVariables\IWorldVariablesView.cs" />
+    <Compile Include="Controllers\WorldVariables\WorldVariablesController.cs" />
+    <Compile Include="Controllers\WorldVariables\WorldVariablesView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Controllers\WorldVariables\WorldVariablesView.Designer.cs">
+      <DependentUpon>WorldVariablesView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controllers\World\IWorldController.cs" />
+    <Compile Include="Controllers\World\IWorldView.cs" />
+    <Compile Include="Controllers\World\WorldController.cs" />
+    <Compile Include="Factories\ControllerFactory.cs" />
+    <Compile Include="Factories\IControllerFactory.cs" />
     <Compile Include="Ioc\AutofacRegistry.cs" />
     <Compile Include="CharactersetResources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>CharactersetResources.resx</DependentUpon>
     </Compile>
-    <Compile Include="Commands\CloseWorldCommand.cs" />
-    <Compile Include="Commands\NewWorldCommand.cs" />
     <Compile Include="Configuration\Config.cs" />
-    <Compile Include="Configuration\NewWorldWindowDefaults.cs" />
-    <Compile Include="Configuration\WindowDefaults.cs" />
-    <Compile Include="Configuration\WindowLocation.cs" />
-    <Compile Include="Configuration\WindowLocations.cs" />
+    <Compile Include="Configuration\ViewBounds.cs" />
     <Compile Include="Constants.cs" />
-    <Compile Include="Factories\FormFactory.cs" />
-    <Compile Include="Forms\AboutForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\AboutForm.Designer.cs">
-      <DependentUpon>AboutForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\NewWorldForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\NewWorldForm.Designer.cs">
-      <DependentUpon>NewWorldForm.cs</DependentUpon>
-    </Compile>
+    <Compile Include="Factories\ViewFactory.cs" />
     <Compile Include="IconResources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>IconResources.resx</DependentUpon>
     </Compile>
-    <Compile Include="Factories\IFormFactory.cs" />
+    <Compile Include="Factories\IViewFactory.cs" />
     <Compile Include="ImageResources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -95,22 +106,19 @@
     <Compile Include="Messages\WorldChangedMessage.cs" />
     <Compile Include="Messages\WorldLoadedMessage.cs" />
     <Compile Include="Messages\WorldOpeningMessage.cs" />
-    <Compile Include="Models\Editor\Editor.cs" />
-    <Compile Include="Models\Editor\IEditor.cs" />
-    <Compile Include="Models\Editor\IFileSystem.cs" />
+    <Compile Include="FileSystem.cs" />
+    <Compile Include="IFileSystem.cs" />
     <Compile Include="Models\Editor\IWorld.cs" />
     <Compile Include="Messages\WorldClosedMessage.cs" />
-    <Compile Include="Messages\WorldClosingMessage.cs" />
     <Compile Include="Messages\WorldCreatedMessage.cs" />
-    <Compile Include="Messages\WorldCreatingMessage.cs" />
     <Compile Include="Messages\WorldSavedMessage.cs" />
     <Compile Include="Messages\WorldSavingMessage.cs" />
     <Compile Include="ViewModels\NewWorld\NewWorldViewModel.cs" />
-    <Compile Include="Forms\WorldEditorForm.cs">
+    <Compile Include="Controllers\World\WorldView.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\WorldEditorForm.Designer.cs">
-      <DependentUpon>WorldEditorForm.cs</DependentUpon>
+    <Compile Include="Controllers\World\WorldView.Designer.cs">
+      <DependentUpon>WorldView.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -119,14 +127,17 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>CharactersetResources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\AboutForm.resx">
-      <DependentUpon>AboutForm.cs</DependentUpon>
+    <EmbeddedResource Include="Controllers\About\AboutView.resx">
+      <DependentUpon>AboutView.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\NewWorldForm.resx">
-      <DependentUpon>NewWorldForm.cs</DependentUpon>
+    <EmbeddedResource Include="Controllers\NewWorld\NewWorldView.resx">
+      <DependentUpon>NewWorldView.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\WorldEditorForm.resx">
-      <DependentUpon>WorldEditorForm.cs</DependentUpon>
+    <EmbeddedResource Include="Controllers\WorldVariables\WorldVariablesView.resx">
+      <DependentUpon>WorldVariablesView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controllers\World\WorldView.resx">
+      <DependentUpon>WorldView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="IconResources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -213,7 +224,12 @@
     <None Include="Media\Icons\Close_16x.png" />
     <None Include="Media\Icons\Open_16x.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="Media\Icons\Edit_16x.png" />
+    <Content Include="Media\Icons\Remove_16x.png" />
+    <Content Include="Media\Icons\VariableProperty.ico" />
+    <Content Include="Media\Icons\VariableProperty_16x.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

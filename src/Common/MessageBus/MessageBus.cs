@@ -9,7 +9,8 @@ namespace NathanAlden.TextAdventure.Common.MessageBus
     public class MessageBus : IMessageBus
     {
         private readonly Dictionary<Type, object> _subjectsByMessageType = new Dictionary<Type, object>();
-        private bool _disposed;
+
+        protected bool Disposed { get; private set; }
 
         public IDisposable Subscribe<TMessage>(Action<TMessage> messageDelegate)
             where TMessage : IMessage
@@ -20,7 +21,7 @@ namespace NathanAlden.TextAdventure.Common.MessageBus
         public void Publish<TMessage>(TMessage message)
             where TMessage : IMessage
         {
-            this.ThrowIfDisposed(_disposed);
+            this.ThrowIfDisposed(Disposed);
 
             GetSubject<TMessage>().OnNext(message);
         }
@@ -28,7 +29,7 @@ namespace NathanAlden.TextAdventure.Common.MessageBus
         public void Publish<TMessage>()
             where TMessage : IMessage, new()
         {
-            this.ThrowIfDisposed(_disposed);
+            this.ThrowIfDisposed(Disposed);
 
             Publish(new TMessage());
         }
@@ -36,26 +37,26 @@ namespace NathanAlden.TextAdventure.Common.MessageBus
         public IObservable<TMessage> GetObservable<TMessage>()
             where TMessage : IMessage
         {
-            this.ThrowIfDisposed(_disposed);
+            this.ThrowIfDisposed(Disposed);
 
             return GetSubject<TMessage>().AsObservable();
         }
 
         public void Dispose()
         {
-            Dispose(false);
+            Dispose(true);
+            GC.SuppressFinalize(this);
         }
 
         ~MessageBus()
         {
-            Dispose(true);
-            GC.SuppressFinalize(this);
+            Dispose(false);
         }
 
         private Subject<TMessage> GetSubject<TMessage>()
             where TMessage : IMessage
         {
-            this.ThrowIfDisposed(_disposed);
+            this.ThrowIfDisposed(Disposed);
 
             Type messageType = typeof(TMessage);
             object subject;
@@ -76,7 +77,7 @@ namespace NathanAlden.TextAdventure.Common.MessageBus
 
         protected virtual void Dispose(bool disposing)
         {
-            if (_disposed)
+            if (Disposed)
             {
                 return;
             }
@@ -90,7 +91,7 @@ namespace NathanAlden.TextAdventure.Common.MessageBus
                 _subjectsByMessageType.Clear();
             }
 
-            _disposed = true;
+            Disposed = true;
         }
     }
 }

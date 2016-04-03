@@ -34,9 +34,6 @@
       <Link>Properties\CommonAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="BitmapExtensions.cs" />
-    <Compile Include="Commands\Command.cs" />
-    <Compile Include="Commands\CommandBase.cs" />
-    <Compile Include="Commands\ICommand.cs" />
     <Compile Include="Controls\PromptTextBox.cs">
       <SubType>Component</SubType>
     </Compile>

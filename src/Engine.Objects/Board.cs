@@ -14,10 +14,9 @@ namespace NathanAlden.TextAdventure.Engine.Objects
         public Board(IGuidFactory guidFactory, World world, Coordinate<int> coordinate, Size<int> size)
         {
             guidFactory.ThrowIfNull(nameof(guidFactory));
-            world.ThrowIfNull(nameof(world));
+            _world = world.EnsureNotNull(nameof(world));
 
             Id = guidFactory.Random();
-            _world = world;
             Coordinate = coordinate;
             Size = size;
             _boardLayers = new BoardLayerCollection<BoardLayer>(() => new BoardLayer(size));
