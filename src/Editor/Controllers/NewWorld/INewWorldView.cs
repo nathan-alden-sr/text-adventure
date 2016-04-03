@@ -1,7 +1,6 @@
 using System;
 using System.Reactive;
 using System.Windows.Forms;
-using NathanAlden.TextAdventure.Editor.ViewModels.NewWorld;
 
 namespace NathanAlden.TextAdventure.Editor.Controllers.NewWorld
 {

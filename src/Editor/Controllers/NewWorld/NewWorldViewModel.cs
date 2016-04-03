@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using NathanAlden.TextAdventure.Common.Models;
 
-namespace NathanAlden.TextAdventure.Editor.ViewModels.NewWorld
+namespace NathanAlden.TextAdventure.Editor.Controllers.NewWorld
 {
     public class NewWorldViewModel : Model
     {

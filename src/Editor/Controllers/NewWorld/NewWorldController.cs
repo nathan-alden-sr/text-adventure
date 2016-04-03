@@ -4,7 +4,6 @@ using Junior.Common.Net35;
 using NathanAlden.TextAdventure.Common.Config;
 using NathanAlden.TextAdventure.Common.WindowsForms;
 using NathanAlden.TextAdventure.Editor.Configuration;
-using NathanAlden.TextAdventure.Editor.ViewModels.NewWorld;
 using NathanAlden.TextAdventure.Models.World;
 
 namespace NathanAlden.TextAdventure.Editor.Controllers.NewWorld

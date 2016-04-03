@@ -1,5 +1,5 @@
 ﻿using NathanAlden.TextAdventure.Common.MessageBus;
-using NathanAlden.TextAdventure.Editor.Models.Editor;
+using NathanAlden.TextAdventure.Editor.Controllers.World;
 
 namespace NathanAlden.TextAdventure.Editor.Messages
 {

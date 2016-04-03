@@ -90,7 +90,7 @@
             // 
             // bindingSource
             // 
-            this.bindingSource.DataSource = typeof(NathanAlden.TextAdventure.Editor.ViewModels.NewWorld.NewWorldViewModel);
+            this.bindingSource.DataSource = typeof(NewWorldViewModel);
             // 
             // buttonOk
             // 

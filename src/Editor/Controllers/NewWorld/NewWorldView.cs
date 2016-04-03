@@ -5,7 +5,6 @@ using System.Windows.Forms;
 using Junior.Common.Net35;
 using NathanAlden.TextAdventure.Common.WindowsForms.Validation;
 using NathanAlden.TextAdventure.Common.WindowsForms.Validation.Decorators;
-using NathanAlden.TextAdventure.Editor.ViewModels.NewWorld;
 
 namespace NathanAlden.TextAdventure.Editor.Controllers.NewWorld
 {

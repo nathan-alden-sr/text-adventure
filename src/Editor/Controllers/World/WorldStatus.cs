@@ -1,4 +1,4 @@
-﻿namespace NathanAlden.TextAdventure.Editor.Models.Editor
+﻿namespace NathanAlden.TextAdventure.Editor.Controllers.World
 {
     public enum WorldStatus
     {

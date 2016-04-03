@@ -11,7 +11,6 @@ using NathanAlden.TextAdventure.Editor.Controllers.NewWorld;
 using NathanAlden.TextAdventure.Editor.Controllers.WorldVariables;
 using NathanAlden.TextAdventure.Editor.Factories;
 using NathanAlden.TextAdventure.Editor.Messages;
-using NathanAlden.TextAdventure.Editor.Models.Editor;
 using NathanAlden.TextAdventure.Models.World;
 using Newtonsoft.Json;
 
