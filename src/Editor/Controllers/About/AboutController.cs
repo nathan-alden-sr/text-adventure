@@ -7,8 +7,8 @@ namespace NathanAlden.TextAdventure.Editor.Controllers.About
 {
     public class AboutController : Controller<IAboutView>, IAboutController
     {
-        public AboutController(IAboutView aboutView)
-            : base(aboutView)
+        public AboutController(IAboutView view)
+            : base(view)
         {
             AddDisposables(View.GitHubNavigationRequested.Subscribe(x => NavigateToGitHub()));
         }

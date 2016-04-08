@@ -4,8 +4,8 @@
     {
         Boolean,
         Character,
-        String,
+        FixedPoint,
         Integer,
-        FixedPoint
+        String
     }
 }

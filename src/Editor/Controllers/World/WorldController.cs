@@ -24,8 +24,8 @@ namespace NathanAlden.TextAdventure.Editor.Controllers.World
         private readonly IFileSystem _fileSystem;
         private WorldClass _world;
 
-        public WorldController(IViewFactory viewFactory, IControllerFactory controllerFactory, IMessageBus messageBus, IConfigFile<Config> configFile, IFileSystem fileSystem)
-            : base(viewFactory.Create<IWorldView>())
+        public WorldController(IWorldView view, IControllerFactory controllerFactory, IMessageBus messageBus, IConfigFile<Config> configFile, IFileSystem fileSystem)
+            : base(view)
         {
             messageBus.ThrowIfNull(nameof(messageBus));
 
@@ -35,16 +35,16 @@ namespace NathanAlden.TextAdventure.Editor.Controllers.World
 
             AddDisposables(
                 messageBus.GetObservable<WorldChangedMessage>().Subscribe(ReceiveMessage),
-                View.ViewClosing.Subscribe(x => x.EventArgs.Cancel = !ViewClosing(x.EventArgs.CloseReason == CloseReason.UserClosing)),
-                View.NewWorld.Subscribe(x => NewWorld()),
-                View.OpenWorld.Subscribe(x => OpenWorld()),
-                View.CloseWorld.Subscribe(x => CloseWorld()),
-                View.SaveWorld.Subscribe(x => SaveWorld()),
-                View.SaveWorldAs.Subscribe(x => SaveWorldAs()),
-                View.Exit.Subscribe(x => Exit()),
-                View.Variables.Subscribe(x => Variables()),
-                View.Options.Subscribe(x => Options()),
-                View.About.Subscribe(x => About()));
+                View.FileCloseWorldRequested.Subscribe(x => CloseWorld()),
+                View.FileExitRequested.Subscribe(x => Exit()),
+                View.FileNewWorldRequested.Subscribe(x => NewWorld()),
+                View.FileOpenWorldRequested.Subscribe(x => OpenWorld()),
+                View.FileSaveWorldAsRequested.Subscribe(x => SaveWorldAs()),
+                View.FileSaveWorldRequested.Subscribe(x => SaveWorld()),
+                View.HelpAboutRequested.Subscribe(x => About()),
+                View.ToolsOptionsRequested.Subscribe(x => Options()),
+                View.ViewClosing.Subscribe(x => x.Cancel = !ViewClosing(x.CloseReason == CloseReason.UserClosing)),
+                View.WorldVariablesRequested.Subscribe(x => Variables()));
 
             View.RestoreBounds(_configFile.Config.Views.World.Bounds);
             View.SetTitle(ViewTitle);
@@ -255,7 +255,7 @@ namespace NathanAlden.TextAdventure.Editor.Controllers.World
         {
             using (var worldVariablesController = _controllerFactory.Create<IWorldVariablesController>())
             {
-                worldVariablesController.ShowView(View);
+                worldVariablesController.ShowView(View, _world.Model);
             }
         }
 

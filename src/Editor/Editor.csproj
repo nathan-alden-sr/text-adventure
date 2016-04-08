@@ -42,6 +42,7 @@
     <Compile Include="Configuration\FileSystem.cs" />
     <Compile Include="Configuration\NewWorldView.cs" />
     <Compile Include="Configuration\Views.cs" />
+    <Compile Include="Configuration\WorldVariableView.cs" />
     <Compile Include="Configuration\WorldVariablesView.cs" />
     <Compile Include="Configuration\WorldView.cs" />
     <Compile Include="Controllers\About\AboutController.cs" />
@@ -67,6 +68,8 @@
     <Compile Include="Controllers\NewWorld\NewWorldView.Designer.cs">
       <DependentUpon>NewWorldView.cs</DependentUpon>
     </Compile>
+    <Compile Include="Controllers\WorldVariables\CategoryFilterType.cs" />
+    <Compile Include="Controllers\WorldVariables\CategoryFilterViewModel.cs" />
     <Compile Include="Controllers\WorldVariables\IWorldVariablesController.cs" />
     <Compile Include="Controllers\WorldVariables\IWorldVariablesView.cs" />
     <Compile Include="Controllers\WorldVariables\WorldVariablesController.cs" />
@@ -75,6 +78,18 @@
     </Compile>
     <Compile Include="Controllers\WorldVariables\WorldVariablesView.Designer.cs">
       <DependentUpon>WorldVariablesView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controllers\WorldVariables\WorldVariableValueAttribute.cs" />
+    <Compile Include="Controllers\WorldVariables\WorldVariableViewModel.cs" />
+    <Compile Include="Controllers\WorldVariable\EditMode.cs" />
+    <Compile Include="Controllers\WorldVariable\IWorldVariableController.cs" />
+    <Compile Include="Controllers\WorldVariable\IWorldVariableView.cs" />
+    <Compile Include="Controllers\WorldVariable\WorldVariableController.cs" />
+    <Compile Include="Controllers\WorldVariable\WorldVariableView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Controllers\WorldVariable\WorldVariableView.Designer.cs">
+      <DependentUpon>WorldVariableView.cs</DependentUpon>
     </Compile>
     <Compile Include="Controllers\World\IWorldController.cs" />
     <Compile Include="Controllers\World\IWorldView.cs" />
@@ -120,6 +135,7 @@
     <Compile Include="Controllers\World\WorldView.Designer.cs">
       <DependentUpon>WorldView.cs</DependentUpon>
     </Compile>
+    <Compile Include="PairMappers\WorldVariableTypePairMapper.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Controllers\World\WorldStatus.cs" />
@@ -136,6 +152,9 @@
     <EmbeddedResource Include="Controllers\WorldVariables\WorldVariablesView.resx">
       <DependentUpon>WorldVariablesView.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Controllers\WorldVariable\WorldVariableView.resx">
+      <DependentUpon>WorldVariableView.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Controllers\World\WorldView.resx">
       <DependentUpon>WorldView.cs</DependentUpon>
     </EmbeddedResource>
@@ -148,6 +167,9 @@
       <LastGenOutput>ImageResources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <None Include="packages.config" />
+    <None Include="Properties\DataSources\NathanAlden.TextAdventure.Editor.Controllers.WorldVariables.CategoryFilterViewModel.datasource" />
+    <None Include="Properties\DataSources\NathanAlden.TextAdventure.Editor.Controllers.WorldVariables.WorldVariableTypeViewModel.datasource" />
+    <None Include="Properties\DataSources\NathanAlden.TextAdventure.Editor.Controllers.WorldVariables.WorldVariableViewModel.datasource" />
     <None Include="Properties\DataSources\NathanAlden.TextAdventure.Editor.Models.NewWorld.NewWorldModel.datasource" />
   </ItemGroup>
   <ItemGroup>
@@ -177,7 +199,6 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
-    <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Reactive.Core, Version=2.2.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Rx-Core.2.2.5\lib\net45\System.Reactive.Core.dll</HintPath>
@@ -196,7 +217,6 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="System.Windows.Forms" />
-    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.ico" />

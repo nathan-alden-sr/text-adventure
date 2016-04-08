@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
@@ -9,7 +10,10 @@ namespace NathanAlden.TextAdventure.Editor.Controllers
 {
     public class FormView : Form, IView
     {
+        [Browsable(false)]
         public Rectangle PersistentBounds => WindowState != FormWindowState.Normal ? RestoreBounds : Bounds;
+
+        [Browsable(false)]
         public bool Maximized => WindowState == FormWindowState.Maximized;
 
         public DialogResult ShowMessageBox(string text, MessageBoxButtons buttons, MessageBoxIcon icon, MessageBoxDefaultButton defaultButton, MessageBoxOptions options)
@@ -52,15 +56,15 @@ namespace NathanAlden.TextAdventure.Editor.Controllers
             WindowState = bounds.Maximized ? FormWindowState.Maximized : FormWindowState.Normal;
         }
 
-        protected void RestoreColumnWidths(IEnumerable<int> columnWidths, ListView listView)
+        protected void RestoreColumnWidths(IEnumerable<int> columnWidths, DataGridView dataGridView)
         {
             columnWidths.ThrowIfNull(nameof(columnWidths));
 
             int[] widths = (columnWidths ?? Enumerable.Empty<int>()).ToArray();
 
-            for (var i = 0; i < widths.Length && i < listView.Columns.Count; i++)
+            for (var i = 0; i < widths.Length && i < dataGridView.Columns.Count; i++)
             {
-                listView.Columns[i].Width = widths[i];
+                dataGridView.Columns[i].Width = widths[i];
             }
         }
     }

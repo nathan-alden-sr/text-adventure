@@ -33,6 +33,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(NewWorldView));
             System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
             System.Windows.Forms.Panel panel1;
+            System.Windows.Forms.Button buttonGenerateId;
             System.Windows.Forms.Label label4;
             System.Windows.Forms.Label label3;
             System.Windows.Forms.Label label2;
@@ -41,7 +42,6 @@
             this.bindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.buttonOk = new System.Windows.Forms.Button();
             this.buttonCancel = new System.Windows.Forms.Button();
-            this.buttonGenerateId = new System.Windows.Forms.Button();
             this.promptTextBoxVersion = new NathanAlden.TextAdventure.Common.WindowsForms.Controls.PromptTextBox();
             this.promptTextBoxId = new NathanAlden.TextAdventure.Common.WindowsForms.Controls.PromptTextBox();
             this.promptTextBoxAuthor = new NathanAlden.TextAdventure.Common.WindowsForms.Controls.PromptTextBox();
@@ -50,6 +50,7 @@
             flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             panel1 = new System.Windows.Forms.Panel();
+            buttonGenerateId = new System.Windows.Forms.Button();
             label4 = new System.Windows.Forms.Label();
             label3 = new System.Windows.Forms.Label();
             label2 = new System.Windows.Forms.Label();
@@ -69,8 +70,8 @@
             flowLayoutPanel1.Controls.Add(this.pictureBoxValidationError);
             flowLayoutPanel1.Controls.Add(this.buttonOk);
             flowLayoutPanel1.Controls.Add(this.buttonCancel);
-            flowLayoutPanel1.Location = new System.Drawing.Point(244, 130);
-            flowLayoutPanel1.Margin = new System.Windows.Forms.Padding(0, 12, 0, 0);
+            flowLayoutPanel1.Location = new System.Drawing.Point(244, 128);
+            flowLayoutPanel1.Margin = new System.Windows.Forms.Padding(0, 10, 0, 0);
             flowLayoutPanel1.Name = "flowLayoutPanel1";
             flowLayoutPanel1.Size = new System.Drawing.Size(186, 28);
             flowLayoutPanel1.TabIndex = 1;
@@ -90,7 +91,7 @@
             // 
             // bindingSource
             // 
-            this.bindingSource.DataSource = typeof(NewWorldViewModel);
+            this.bindingSource.DataSource = typeof(NathanAlden.TextAdventure.Editor.Controllers.NewWorld.NewWorldViewModel);
             // 
             // buttonOk
             // 
@@ -128,14 +129,14 @@
             tableLayoutPanel1.RowCount = 2;
             tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            tableLayoutPanel1.Size = new System.Drawing.Size(430, 158);
+            tableLayoutPanel1.Size = new System.Drawing.Size(430, 156);
             tableLayoutPanel1.TabIndex = 0;
             // 
             // panel1
             // 
             panel1.AutoSize = true;
             panel1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            panel1.Controls.Add(this.buttonGenerateId);
+            panel1.Controls.Add(buttonGenerateId);
             panel1.Controls.Add(label4);
             panel1.Controls.Add(this.promptTextBoxVersion);
             panel1.Controls.Add(label3);
@@ -152,14 +153,15 @@
             // 
             // buttonGenerateId
             // 
-            this.buttonGenerateId.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this.buttonGenerateId.Location = new System.Drawing.Point(375, 0);
-            this.buttonGenerateId.Margin = new System.Windows.Forms.Padding(0);
-            this.buttonGenerateId.Name = "buttonGenerateId";
-            this.buttonGenerateId.Size = new System.Drawing.Size(55, 25);
-            this.buttonGenerateId.TabIndex = 2;
-            this.buttonGenerateId.Text = "Generate";
-            this.buttonGenerateId.UseVisualStyleBackColor = true;
+            buttonGenerateId.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            buttonGenerateId.Location = new System.Drawing.Point(375, 0);
+            buttonGenerateId.Margin = new System.Windows.Forms.Padding(0);
+            buttonGenerateId.Name = "buttonGenerateId";
+            buttonGenerateId.Size = new System.Drawing.Size(55, 25);
+            buttonGenerateId.TabIndex = 2;
+            buttonGenerateId.Text = "Generate";
+            buttonGenerateId.UseVisualStyleBackColor = true;
+            buttonGenerateId.Click += new System.EventHandler(this.buttonGenerateId_Click);
             // 
             // label4
             // 
@@ -181,6 +183,7 @@
             this.promptTextBoxVersion.PromptText = "e.g., 1.0";
             this.promptTextBoxVersion.Size = new System.Drawing.Size(105, 25);
             this.promptTextBoxVersion.TabIndex = 8;
+            this.promptTextBoxVersion.Leave += new System.EventHandler(this.promptTextBoxVersion_Leave);
             // 
             // label3
             // 
@@ -202,6 +205,7 @@
             this.promptTextBoxId.PromptText = "e.g., 00000000-0000-0000-0000-000000000000";
             this.promptTextBoxId.Size = new System.Drawing.Size(287, 25);
             this.promptTextBoxId.TabIndex = 1;
+            this.promptTextBoxId.Leave += new System.EventHandler(this.promptTextBoxId_Leave);
             // 
             // label2
             // 
@@ -223,6 +227,7 @@
             this.promptTextBoxAuthor.PromptText = "e.g., Pat Smith";
             this.promptTextBoxAuthor.Size = new System.Drawing.Size(193, 25);
             this.promptTextBoxAuthor.TabIndex = 6;
+            this.promptTextBoxAuthor.Leave += new System.EventHandler(this.promptTextBoxAuthor_Leave);
             // 
             // label1
             // 
@@ -244,6 +249,7 @@
             this.promptTextBoxWorldName.PromptText = "e.g., My World";
             this.promptTextBoxWorldName.Size = new System.Drawing.Size(193, 25);
             this.promptTextBoxWorldName.TabIndex = 4;
+            this.promptTextBoxWorldName.Leave += new System.EventHandler(this.promptTextBoxWorldName_Leave);
             // 
             // NewWorldView
             // 
@@ -290,6 +296,5 @@
         private Common.WindowsForms.Controls.PromptTextBox promptTextBoxId;
         private Common.WindowsForms.Controls.PromptTextBox promptTextBoxAuthor;
         private Common.WindowsForms.Controls.PromptTextBox promptTextBoxWorldName;
-        private System.Windows.Forms.Button buttonGenerateId;
     }
 }

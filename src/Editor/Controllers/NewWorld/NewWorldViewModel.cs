@@ -12,7 +12,7 @@ namespace NathanAlden.TextAdventure.Editor.Controllers.NewWorld
         private string _worldName;
 
         [Required(AllowEmptyStrings = false, ErrorMessage = "ID required.")]
-        [RegularExpression("^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$", ErrorMessage = "Invalid ID.")]
+        [RegularExpression("^[0-9A-Fa-f]{8}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{12}$", ErrorMessage = "Invalid ID.")]
         public string Id
         {
             get { return _id; }

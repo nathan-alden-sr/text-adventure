@@ -29,160 +29,292 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.Windows.Forms.Panel panel1;
+            System.Windows.Forms.ToolStripSeparator toolStripMenuItem1;
+            System.Windows.Forms.ToolStripSeparator toolStripMenuItem2;
             System.Windows.Forms.Label label1;
-            System.Windows.Forms.ContextMenuStrip contextMenuStrip;
-            System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
-            System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
+            System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
+            System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
+            System.Windows.Forms.Button buttonCancel;
+            System.Windows.Forms.Button buttonOk;
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(WorldVariablesView));
+            this.dataGridViewVariables = new System.Windows.Forms.DataGridView();
+            this.contextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.toolStripMenuItemNew = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemEdit = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemDelete = new System.Windows.Forms.ToolStripMenuItem();
             this.comboBoxCategories = new System.Windows.Forms.ComboBox();
-            this.listViewVariables = new System.Windows.Forms.ListView();
-            this.columnHeaderName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeaderCategory = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeaderType = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeaderValue = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.bindingSourceFilter = new System.Windows.Forms.BindingSource(this.components);
+            this.bindingSourceVariables = new System.Windows.Forms.BindingSource(this.components);
+            this.columnName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.columnCategory = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.columnType = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.columnValue = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            panel1 = new System.Windows.Forms.Panel();
+            toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
+            toolStripMenuItem2 = new System.Windows.Forms.ToolStripSeparator();
             label1 = new System.Windows.Forms.Label();
-            contextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
-            toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
-            contextMenuStrip.SuspendLayout();
+            tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
+            buttonCancel = new System.Windows.Forms.Button();
+            buttonOk = new System.Windows.Forms.Button();
+            panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewVariables)).BeginInit();
+            this.contextMenuStrip.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.bindingSourceFilter)).BeginInit();
+            tableLayoutPanel1.SuspendLayout();
+            flowLayoutPanel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.bindingSourceVariables)).BeginInit();
             this.SuspendLayout();
             // 
-            // label1
+            // panel1
             // 
-            label1.AutoSize = true;
-            label1.Location = new System.Drawing.Point(9, 15);
-            label1.Name = "label1";
-            label1.Size = new System.Drawing.Size(112, 17);
-            label1.TabIndex = 0;
-            label1.Text = "Filter by category:";
+            panel1.Controls.Add(this.dataGridViewVariables);
+            panel1.Controls.Add(label1);
+            panel1.Controls.Add(this.comboBoxCategories);
+            panel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            panel1.Location = new System.Drawing.Point(0, 0);
+            panel1.Margin = new System.Windows.Forms.Padding(0);
+            panel1.Name = "panel1";
+            panel1.Size = new System.Drawing.Size(426, 148);
+            panel1.TabIndex = 0;
+            // 
+            // dataGridViewVariables
+            // 
+            this.dataGridViewVariables.AllowUserToAddRows = false;
+            this.dataGridViewVariables.AllowUserToDeleteRows = false;
+            this.dataGridViewVariables.AllowUserToResizeRows = false;
+            this.dataGridViewVariables.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.dataGridViewVariables.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewVariables.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.columnName,
+            this.columnCategory,
+            this.columnType,
+            this.columnValue});
+            this.dataGridViewVariables.ContextMenuStrip = this.contextMenuStrip;
+            this.dataGridViewVariables.Location = new System.Drawing.Point(0, 31);
+            this.dataGridViewVariables.Margin = new System.Windows.Forms.Padding(0);
+            this.dataGridViewVariables.Name = "dataGridViewVariables";
+            this.dataGridViewVariables.ReadOnly = true;
+            this.dataGridViewVariables.RowHeadersVisible = false;
+            this.dataGridViewVariables.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dataGridViewVariables.Size = new System.Drawing.Size(426, 157);
+            this.dataGridViewVariables.TabIndex = 0;
+            this.dataGridViewVariables.CellMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridViewVariables_CellMouseDoubleClick);
+            this.dataGridViewVariables.KeyDown += new System.Windows.Forms.KeyEventHandler(this.dataGridViewVariables_KeyDown);
+            this.dataGridViewVariables.MouseDown += new System.Windows.Forms.MouseEventHandler(this.dataGridViewVariables_MouseDown);
             // 
             // contextMenuStrip
             // 
-            contextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.contextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripMenuItemNew,
-            toolStripSeparator1,
+            toolStripMenuItem1,
             this.toolStripMenuItemEdit,
-            toolStripSeparator2,
+            toolStripMenuItem2,
             this.toolStripMenuItemDelete});
-            contextMenuStrip.Name = "contextMenuStrip1";
-            contextMenuStrip.Size = new System.Drawing.Size(108, 82);
+            this.contextMenuStrip.Name = "contextMenuStrip";
+            this.contextMenuStrip.Size = new System.Drawing.Size(151, 82);
             // 
             // toolStripMenuItemNew
             // 
             this.toolStripMenuItemNew.Image = global::NathanAlden.TextAdventure.Editor.IconResources.Create_16x;
             this.toolStripMenuItemNew.Name = "toolStripMenuItemNew";
-            this.toolStripMenuItemNew.Size = new System.Drawing.Size(107, 22);
+            this.toolStripMenuItemNew.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.N)));
+            this.toolStripMenuItemNew.Size = new System.Drawing.Size(150, 22);
             this.toolStripMenuItemNew.Text = "&New...";
+            this.toolStripMenuItemNew.Click += new System.EventHandler(this.toolStripMenuItemNew_Click);
             // 
-            // toolStripSeparator1
+            // toolStripMenuItem1
             // 
-            toolStripSeparator1.Name = "toolStripSeparator1";
-            toolStripSeparator1.Size = new System.Drawing.Size(104, 6);
+            toolStripMenuItem1.Name = "toolStripMenuItem1";
+            toolStripMenuItem1.Size = new System.Drawing.Size(147, 6);
             // 
             // toolStripMenuItemEdit
             // 
             this.toolStripMenuItemEdit.Image = global::NathanAlden.TextAdventure.Editor.IconResources.Edit_16x;
             this.toolStripMenuItemEdit.Name = "toolStripMenuItemEdit";
-            this.toolStripMenuItemEdit.Size = new System.Drawing.Size(107, 22);
+            this.toolStripMenuItemEdit.Size = new System.Drawing.Size(150, 22);
             this.toolStripMenuItemEdit.Text = "&Edit...";
+            this.toolStripMenuItemEdit.Click += new System.EventHandler(this.toolStripMenuItemEdit_Click);
             // 
-            // toolStripSeparator2
+            // toolStripMenuItem2
             // 
-            toolStripSeparator2.Name = "toolStripSeparator2";
-            toolStripSeparator2.Size = new System.Drawing.Size(104, 6);
+            toolStripMenuItem2.Name = "toolStripMenuItem2";
+            toolStripMenuItem2.Size = new System.Drawing.Size(147, 6);
             // 
             // toolStripMenuItemDelete
             // 
             this.toolStripMenuItemDelete.Image = global::NathanAlden.TextAdventure.Editor.IconResources.Remove_16x;
             this.toolStripMenuItemDelete.Name = "toolStripMenuItemDelete";
-            this.toolStripMenuItemDelete.Size = new System.Drawing.Size(107, 22);
+            this.toolStripMenuItemDelete.ShortcutKeys = System.Windows.Forms.Keys.Delete;
+            this.toolStripMenuItemDelete.Size = new System.Drawing.Size(150, 22);
             this.toolStripMenuItemDelete.Text = "&Delete";
+            this.toolStripMenuItemDelete.Click += new System.EventHandler(this.toolStripMenuItemDelete_Click);
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Location = new System.Drawing.Point(-3, 3);
+            label1.Margin = new System.Windows.Forms.Padding(0);
+            label1.Name = "label1";
+            label1.Size = new System.Drawing.Size(112, 17);
+            label1.TabIndex = 1;
+            label1.Text = "Filter by category:";
             // 
             // comboBoxCategories
             // 
+            this.comboBoxCategories.DataSource = this.bindingSourceFilter;
+            this.comboBoxCategories.DisplayMember = "Name";
             this.comboBoxCategories.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxCategories.FormattingEnabled = true;
-            this.comboBoxCategories.Items.AddRange(new object[] {
-            "(All)"});
-            this.comboBoxCategories.Location = new System.Drawing.Point(127, 12);
+            this.comboBoxCategories.Location = new System.Drawing.Point(115, 0);
+            this.comboBoxCategories.Margin = new System.Windows.Forms.Padding(0);
             this.comboBoxCategories.Name = "comboBoxCategories";
             this.comboBoxCategories.Size = new System.Drawing.Size(200, 25);
-            this.comboBoxCategories.TabIndex = 1;
+            this.comboBoxCategories.TabIndex = 2;
+            this.comboBoxCategories.ValueMember = "Category";
+            this.comboBoxCategories.SelectedIndexChanged += new System.EventHandler(this.comboBoxCategories_SelectedIndexChanged);
             // 
-            // listViewVariables
+            // bindingSourceFilter
             // 
-            this.listViewVariables.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.bindingSourceFilter.DataSource = typeof(NathanAlden.TextAdventure.Editor.Controllers.WorldVariables.CategoryFilterViewModel);
+            // 
+            // tableLayoutPanel1
+            // 
+            tableLayoutPanel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.listViewVariables.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.columnHeaderName,
-            this.columnHeaderCategory,
-            this.columnHeaderType,
-            this.columnHeaderValue});
-            this.listViewVariables.ContextMenuStrip = contextMenuStrip;
-            this.listViewVariables.FullRowSelect = true;
-            this.listViewVariables.GridLines = true;
-            this.listViewVariables.Location = new System.Drawing.Point(12, 43);
-            this.listViewVariables.Name = "listViewVariables";
-            this.listViewVariables.Size = new System.Drawing.Size(564, 383);
-            this.listViewVariables.TabIndex = 2;
-            this.listViewVariables.UseCompatibleStateImageBehavior = false;
-            this.listViewVariables.View = System.Windows.Forms.View.Details;
-            this.listViewVariables.MouseDown += new System.Windows.Forms.MouseEventHandler(this.listViewVariables_MouseDown);
+            tableLayoutPanel1.ColumnCount = 1;
+            tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            tableLayoutPanel1.Controls.Add(flowLayoutPanel1, 0, 1);
+            tableLayoutPanel1.Controls.Add(panel1, 0, 0);
+            tableLayoutPanel1.Location = new System.Drawing.Point(15, 15);
+            tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(0);
+            tableLayoutPanel1.Name = "tableLayoutPanel1";
+            tableLayoutPanel1.RowCount = 2;
+            tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            tableLayoutPanel1.Size = new System.Drawing.Size(426, 186);
+            tableLayoutPanel1.TabIndex = 0;
             // 
-            // columnHeaderName
+            // flowLayoutPanel1
             // 
-            this.columnHeaderName.Text = "Name";
+            flowLayoutPanel1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            flowLayoutPanel1.AutoSize = true;
+            flowLayoutPanel1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            flowLayoutPanel1.Controls.Add(buttonCancel);
+            flowLayoutPanel1.Controls.Add(buttonOk);
+            flowLayoutPanel1.FlowDirection = System.Windows.Forms.FlowDirection.RightToLeft;
+            flowLayoutPanel1.Location = new System.Drawing.Point(266, 158);
+            flowLayoutPanel1.Margin = new System.Windows.Forms.Padding(0, 10, 0, 0);
+            flowLayoutPanel1.Name = "flowLayoutPanel1";
+            flowLayoutPanel1.Size = new System.Drawing.Size(160, 28);
+            flowLayoutPanel1.TabIndex = 1;
             // 
-            // columnHeaderCategory
+            // buttonCancel
             // 
-            this.columnHeaderCategory.Text = "Category";
+            buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            buttonCancel.Location = new System.Drawing.Point(85, 0);
+            buttonCancel.Margin = new System.Windows.Forms.Padding(10, 0, 0, 0);
+            buttonCancel.Name = "buttonCancel";
+            buttonCancel.Size = new System.Drawing.Size(75, 28);
+            buttonCancel.TabIndex = 1;
+            buttonCancel.Text = "Cancel";
+            buttonCancel.UseVisualStyleBackColor = true;
             // 
-            // columnHeaderType
+            // buttonOk
             // 
-            this.columnHeaderType.Text = "Type";
+            buttonOk.DialogResult = System.Windows.Forms.DialogResult.OK;
+            buttonOk.Location = new System.Drawing.Point(0, 0);
+            buttonOk.Margin = new System.Windows.Forms.Padding(0);
+            buttonOk.Name = "buttonOk";
+            buttonOk.Size = new System.Drawing.Size(75, 28);
+            buttonOk.TabIndex = 0;
+            buttonOk.Text = "OK";
+            buttonOk.UseVisualStyleBackColor = true;
             // 
-            // columnHeaderValue
+            // bindingSourceVariables
             // 
-            this.columnHeaderValue.Text = "Value";
+            this.bindingSourceVariables.AllowNew = false;
+            this.bindingSourceVariables.DataSource = typeof(NathanAlden.TextAdventure.Editor.Controllers.WorldVariables.WorldVariableViewModel);
+            // 
+            // columnName
+            // 
+            this.columnName.DataPropertyName = "Name";
+            this.columnName.HeaderText = "Name";
+            this.columnName.Name = "columnName";
+            this.columnName.ReadOnly = true;
+            // 
+            // columnCategory
+            // 
+            this.columnCategory.DataPropertyName = "Category";
+            this.columnCategory.HeaderText = "Category";
+            this.columnCategory.Name = "columnCategory";
+            this.columnCategory.ReadOnly = true;
+            // 
+            // columnType
+            // 
+            this.columnType.DataPropertyName = "TypeDescription";
+            this.columnType.HeaderText = "Type";
+            this.columnType.Name = "columnType";
+            this.columnType.ReadOnly = true;
+            // 
+            // columnValue
+            // 
+            this.columnValue.DataPropertyName = "Value";
+            this.columnValue.HeaderText = "Value";
+            this.columnValue.Name = "columnValue";
+            this.columnValue.ReadOnly = true;
+            this.columnValue.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             // 
             // WorldVariablesView
             // 
+            this.AcceptButton = buttonOk;
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(588, 438);
-            this.Controls.Add(this.listViewVariables);
-            this.Controls.Add(label1);
-            this.Controls.Add(this.comboBoxCategories);
+            this.CancelButton = buttonCancel;
+            this.ClientSize = new System.Drawing.Size(456, 216);
+            this.Controls.Add(tableLayoutPanel1);
             this.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.KeyPreview = true;
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
+            this.MinimumSize = new System.Drawing.Size(472, 255);
             this.Name = "WorldVariablesView";
+            this.Padding = new System.Windows.Forms.Padding(15);
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "World Variables";
-            contextMenuStrip.ResumeLayout(false);
+            panel1.ResumeLayout(false);
+            panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewVariables)).EndInit();
+            this.contextMenuStrip.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.bindingSourceFilter)).EndInit();
+            tableLayoutPanel1.ResumeLayout(false);
+            tableLayoutPanel1.PerformLayout();
+            flowLayoutPanel1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.bindingSourceVariables)).EndInit();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
         #endregion
-
         private System.Windows.Forms.ComboBox comboBoxCategories;
-        private System.Windows.Forms.ListView listViewVariables;
-        private System.Windows.Forms.ColumnHeader columnHeaderCategory;
-        private System.Windows.Forms.ColumnHeader columnHeaderName;
-        private System.Windows.Forms.ColumnHeader columnHeaderType;
-        private System.Windows.Forms.ColumnHeader columnHeaderValue;
+        private System.Windows.Forms.DataGridView dataGridViewVariables;
+        private System.Windows.Forms.BindingSource bindingSourceVariables;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStrip;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemNew;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemEdit;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemDelete;
+        private System.Windows.Forms.BindingSource bindingSourceFilter;
+        private System.Windows.Forms.DataGridViewTextBoxColumn columnName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn columnCategory;
+        private System.Windows.Forms.DataGridViewTextBoxColumn columnType;
+        private System.Windows.Forms.DataGridViewTextBoxColumn columnValue;
     }
 }

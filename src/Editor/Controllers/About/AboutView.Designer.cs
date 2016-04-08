@@ -31,16 +31,19 @@
             System.Windows.Forms.Label label1;
             System.Windows.Forms.Label label2;
             System.Windows.Forms.Panel panel1;
+            System.Windows.Forms.LinkLabel linkLabel;
+            System.Windows.Forms.PictureBox pictureBox;
             System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
-            this.linkLabel = new System.Windows.Forms.LinkLabel();
-            this.pictureBox = new System.Windows.Forms.PictureBox();
-            this.buttonClose = new System.Windows.Forms.Button();
+            System.Windows.Forms.Button buttonClose;
             label1 = new System.Windows.Forms.Label();
             label2 = new System.Windows.Forms.Label();
             panel1 = new System.Windows.Forms.Panel();
+            linkLabel = new System.Windows.Forms.LinkLabel();
+            pictureBox = new System.Windows.Forms.PictureBox();
             tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            buttonClose = new System.Windows.Forms.Button();
             panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(pictureBox)).BeginInit();
             tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -70,8 +73,8 @@
             panel1.AutoSize = true;
             panel1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             panel1.Controls.Add(label1);
-            panel1.Controls.Add(this.linkLabel);
-            panel1.Controls.Add(this.pictureBox);
+            panel1.Controls.Add(linkLabel);
+            panel1.Controls.Add(pictureBox);
             panel1.Controls.Add(label2);
             panel1.Location = new System.Drawing.Point(0, 0);
             panel1.Margin = new System.Windows.Forms.Padding(0);
@@ -81,29 +84,31 @@
             // 
             // linkLabel
             // 
-            this.linkLabel.ActiveLinkColor = System.Drawing.Color.Blue;
-            this.linkLabel.AutoSize = true;
-            this.linkLabel.LinkColor = System.Drawing.Color.Blue;
-            this.linkLabel.Location = new System.Drawing.Point(88, 63);
-            this.linkLabel.Margin = new System.Windows.Forms.Padding(0);
-            this.linkLabel.Name = "linkLabel";
-            this.linkLabel.Size = new System.Drawing.Size(162, 17);
-            this.linkLabel.TabIndex = 2;
-            this.linkLabel.TabStop = true;
-            this.linkLabel.Text = "Visit the GitHub repository";
-            this.linkLabel.VisitedLinkColor = System.Drawing.Color.Blue;
+            linkLabel.ActiveLinkColor = System.Drawing.Color.Blue;
+            linkLabel.AutoSize = true;
+            linkLabel.LinkColor = System.Drawing.Color.Blue;
+            linkLabel.Location = new System.Drawing.Point(88, 63);
+            linkLabel.Margin = new System.Windows.Forms.Padding(0);
+            linkLabel.Name = "linkLabel";
+            linkLabel.Size = new System.Drawing.Size(162, 17);
+            linkLabel.TabIndex = 2;
+            linkLabel.TabStop = true;
+            linkLabel.Text = "Visit the GitHub repository";
+            linkLabel.VisitedLinkColor = System.Drawing.Color.Blue;
+            linkLabel.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel_LinkClicked);
             // 
             // pictureBox
             // 
-            this.pictureBox.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.pictureBox.Image = global::NathanAlden.TextAdventure.Editor.ImageResources.logo;
-            this.pictureBox.Location = new System.Drawing.Point(0, 0);
-            this.pictureBox.Margin = new System.Windows.Forms.Padding(0);
-            this.pictureBox.Name = "pictureBox";
-            this.pictureBox.Size = new System.Drawing.Size(80, 80);
-            this.pictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox.TabIndex = 0;
-            this.pictureBox.TabStop = false;
+            pictureBox.Cursor = System.Windows.Forms.Cursors.Hand;
+            pictureBox.Image = global::NathanAlden.TextAdventure.Editor.ImageResources.logo;
+            pictureBox.Location = new System.Drawing.Point(0, 0);
+            pictureBox.Margin = new System.Windows.Forms.Padding(0);
+            pictureBox.Name = "pictureBox";
+            pictureBox.Size = new System.Drawing.Size(80, 80);
+            pictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            pictureBox.TabIndex = 0;
+            pictureBox.TabStop = false;
+            pictureBox.Click += new System.EventHandler(this.pictureBox_Click);
             // 
             // tableLayoutPanel1
             // 
@@ -111,7 +116,7 @@
             tableLayoutPanel1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             tableLayoutPanel1.ColumnCount = 1;
             tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            tableLayoutPanel1.Controls.Add(this.buttonClose, 0, 1);
+            tableLayoutPanel1.Controls.Add(buttonClose, 0, 1);
             tableLayoutPanel1.Controls.Add(panel1, 0, 0);
             tableLayoutPanel1.Location = new System.Drawing.Point(15, 15);
             tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(0);
@@ -124,24 +129,24 @@
             // 
             // buttonClose
             // 
-            this.buttonClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonClose.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.buttonClose.Location = new System.Drawing.Point(220, 95);
-            this.buttonClose.Margin = new System.Windows.Forms.Padding(0, 15, 0, 0);
-            this.buttonClose.Name = "buttonClose";
-            this.buttonClose.Size = new System.Drawing.Size(75, 28);
-            this.buttonClose.TabIndex = 0;
-            this.buttonClose.Text = "Close";
-            this.buttonClose.UseVisualStyleBackColor = true;
+            buttonClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            buttonClose.DialogResult = System.Windows.Forms.DialogResult.OK;
+            buttonClose.Location = new System.Drawing.Point(220, 95);
+            buttonClose.Margin = new System.Windows.Forms.Padding(0, 15, 0, 0);
+            buttonClose.Name = "buttonClose";
+            buttonClose.Size = new System.Drawing.Size(75, 28);
+            buttonClose.TabIndex = 0;
+            buttonClose.Text = "Close";
+            buttonClose.UseVisualStyleBackColor = true;
             // 
             // AboutView
             // 
-            this.AcceptButton = this.buttonClose;
+            this.AcceptButton = buttonClose;
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.CancelButton = this.buttonClose;
+            this.CancelButton = buttonClose;
             this.ClientSize = new System.Drawing.Size(340, 173);
             this.ControlBox = false;
             this.Controls.Add(tableLayoutPanel1);
@@ -155,7 +160,7 @@
             this.Text = "About";
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(pictureBox)).EndInit();
             tableLayoutPanel1.ResumeLayout(false);
             tableLayoutPanel1.PerformLayout();
             this.ResumeLayout(false);
@@ -164,9 +169,5 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.LinkLabel linkLabel;
-        private System.Windows.Forms.PictureBox pictureBox;
-        private System.Windows.Forms.Button buttonClose;
     }
 }

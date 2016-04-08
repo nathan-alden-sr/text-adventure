@@ -1,28 +1,21 @@
 ﻿using System;
 using System.Reactive;
 using System.Reactive.Linq;
+using System.Reactive.Subjects;
 using System.Windows.Forms;
 
 namespace NathanAlden.TextAdventure.Editor.Controllers.About
 {
     public partial class AboutView : FormView, IAboutView
     {
+        private readonly Subject<Unit> _gitHubNavigationRequested = new Subject<Unit>();
+
         public AboutView()
         {
             InitializeComponent();
         }
 
-        public IObservable<Unit> GitHubNavigationRequested => Observable.FromEvent(
-            x =>
-            {
-                linkLabel.LinkClicked += LinkLabelOnLinkClicked(x);
-                pictureBox.Click += PictureBoxOnClick(x);
-            },
-            x =>
-            {
-                linkLabel.LinkClicked -= LinkLabelOnLinkClicked(x);
-                pictureBox.Click -= PictureBoxOnClick(x);
-            });
+        public IObservable<Unit> GitHubNavigationRequested => _gitHubNavigationRequested.AsObservable();
 
         public void ShowView(IWin32Window owner)
         {
@@ -34,14 +27,14 @@ namespace NathanAlden.TextAdventure.Editor.Controllers.About
             Close();
         }
 
-        private static LinkLabelLinkClickedEventHandler LinkLabelOnLinkClicked(Action action)
+        private void pictureBox_Click(object sender, EventArgs e)
         {
-            return (sender, args) => action();
+            _gitHubNavigationRequested.OnNext(Unit.Default);
         }
 
-        private static EventHandler PictureBoxOnClick(Action action)
+        private void linkLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            return (sender, args) => action();
+            _gitHubNavigationRequested.OnNext(Unit.Default);
         }
     }
 }

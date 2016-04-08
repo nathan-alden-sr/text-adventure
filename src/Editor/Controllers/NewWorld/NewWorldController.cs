@@ -15,8 +15,8 @@ namespace NathanAlden.TextAdventure.Editor.Controllers.NewWorld
         private readonly ISystemClock _systemClock;
         private readonly NewWorldViewModel _viewModel;
 
-        public NewWorldController(INewWorldView newWorldView, IConfigFile<Config> configFile, IGuidFactory guidFactory, ISystemClock systemClock)
-            : base(newWorldView)
+        public NewWorldController(INewWorldView view, IConfigFile<Config> configFile, IGuidFactory guidFactory, ISystemClock systemClock)
+            : base(view)
         {
             _configFile = configFile.EnsureNotNull(nameof(configFile));
             _guidFactory = guidFactory.EnsureNotNull(nameof(guidFactory));
@@ -28,7 +28,7 @@ namespace NathanAlden.TextAdventure.Editor.Controllers.NewWorld
                              Version = "1.0"
                          };
 
-            AddDisposables(View.GenerateId.Subscribe(x => _viewModel.IdAsGuid = _guidFactory.Random()));
+            AddDisposables(View.IdGenerationRequested.Subscribe(x => _viewModel.IdAsGuid = _guidFactory.Random()));
         }
 
         public WorldModel ShowView(IWin32Window owner)

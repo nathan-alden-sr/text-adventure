@@ -30,39 +30,48 @@
         {
             System.Windows.Forms.MenuStrip menuStrip1;
             System.Windows.Forms.ToolStripMenuItem toolStripMenuItemFile;
+            System.Windows.Forms.ToolStripMenuItem toolStripMenuItemNewWorld;
+            System.Windows.Forms.ToolStripMenuItem toolStripMenuItemOpenWorld;
             System.Windows.Forms.ToolStripSeparator toolStripMenuItem1;
             System.Windows.Forms.ToolStripSeparator toolStripMenuItem3;
             System.Windows.Forms.ToolStripSeparator toolStripMenuItem2;
+            System.Windows.Forms.ToolStripMenuItem toolStripMenuItemExit;
+            System.Windows.Forms.ToolStripMenuItem toolStripMenuItemVariables;
             System.Windows.Forms.ToolStripMenuItem toolStripMenuItemTools;
+            System.Windows.Forms.ToolStripMenuItem toolStripMenuItemOptions;
             System.Windows.Forms.ToolStripMenuItem toolStripMenuItemHelp;
+            System.Windows.Forms.ToolStripMenuItem toolStripMenuItemAbout;
             System.Windows.Forms.ToolStrip toolStripFile;
+            System.Windows.Forms.ToolStripButton toolStripButtonNewWorld;
+            System.Windows.Forms.ToolStripButton toolStripButtonOpenWorld;
             System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+            System.Windows.Forms.ToolStripButton toolStripButtonWorldVariables;
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(WorldView));
-            this.toolStripMenuItemNewWorld = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItemOpenWorld = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemCloseWorld = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemSaveWorld = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemSaveWorldAs = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItemExit = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemWorld = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItemVariables = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItemOptions = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItemAbout = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripButtonNewWorld = new System.Windows.Forms.ToolStripButton();
-            this.toolStripButtonOpenWorld = new System.Windows.Forms.ToolStripButton();
             this.toolStripButtonSaveWorld = new System.Windows.Forms.ToolStripButton();
-            this.toolStripButtonWorldVariables = new System.Windows.Forms.ToolStripButton();
             this.toolStripContainer = new System.Windows.Forms.ToolStripContainer();
             this.toolStripWorld = new System.Windows.Forms.ToolStrip();
             menuStrip1 = new System.Windows.Forms.MenuStrip();
             toolStripMenuItemFile = new System.Windows.Forms.ToolStripMenuItem();
+            toolStripMenuItemNewWorld = new System.Windows.Forms.ToolStripMenuItem();
+            toolStripMenuItemOpenWorld = new System.Windows.Forms.ToolStripMenuItem();
             toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
             toolStripMenuItem3 = new System.Windows.Forms.ToolStripSeparator();
             toolStripMenuItem2 = new System.Windows.Forms.ToolStripSeparator();
+            toolStripMenuItemExit = new System.Windows.Forms.ToolStripMenuItem();
+            toolStripMenuItemVariables = new System.Windows.Forms.ToolStripMenuItem();
             toolStripMenuItemTools = new System.Windows.Forms.ToolStripMenuItem();
+            toolStripMenuItemOptions = new System.Windows.Forms.ToolStripMenuItem();
             toolStripMenuItemHelp = new System.Windows.Forms.ToolStripMenuItem();
+            toolStripMenuItemAbout = new System.Windows.Forms.ToolStripMenuItem();
             toolStripFile = new System.Windows.Forms.ToolStrip();
+            toolStripButtonNewWorld = new System.Windows.Forms.ToolStripButton();
+            toolStripButtonOpenWorld = new System.Windows.Forms.ToolStripButton();
             toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            toolStripButtonWorldVariables = new System.Windows.Forms.ToolStripButton();
             menuStrip1.SuspendLayout();
             toolStripFile.SuspendLayout();
             this.toolStripContainer.TopToolStripPanel.SuspendLayout();
@@ -86,34 +95,36 @@
             // toolStripMenuItemFile
             // 
             toolStripMenuItemFile.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripMenuItemNewWorld,
-            this.toolStripMenuItemOpenWorld,
+            toolStripMenuItemNewWorld,
+            toolStripMenuItemOpenWorld,
             toolStripMenuItem1,
             this.toolStripMenuItemCloseWorld,
             toolStripMenuItem3,
             this.toolStripMenuItemSaveWorld,
             this.toolStripMenuItemSaveWorldAs,
             toolStripMenuItem2,
-            this.toolStripMenuItemExit});
+            toolStripMenuItemExit});
             toolStripMenuItemFile.Name = "toolStripMenuItemFile";
             toolStripMenuItemFile.Size = new System.Drawing.Size(37, 20);
             toolStripMenuItemFile.Text = "&File";
             // 
             // toolStripMenuItemNewWorld
             // 
-            this.toolStripMenuItemNewWorld.Image = global::NathanAlden.TextAdventure.Editor.IconResources.Create_16x;
-            this.toolStripMenuItemNewWorld.Name = "toolStripMenuItemNewWorld";
-            this.toolStripMenuItemNewWorld.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.N)));
-            this.toolStripMenuItemNewWorld.Size = new System.Drawing.Size(190, 22);
-            this.toolStripMenuItemNewWorld.Text = "&New World...";
+            toolStripMenuItemNewWorld.Image = global::NathanAlden.TextAdventure.Editor.IconResources.Create_16x;
+            toolStripMenuItemNewWorld.Name = "toolStripMenuItemNewWorld";
+            toolStripMenuItemNewWorld.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.N)));
+            toolStripMenuItemNewWorld.Size = new System.Drawing.Size(190, 22);
+            toolStripMenuItemNewWorld.Text = "&New World...";
+            toolStripMenuItemNewWorld.Click += new System.EventHandler(this.toolStripMenuItemNewWorld_Click);
             // 
             // toolStripMenuItemOpenWorld
             // 
-            this.toolStripMenuItemOpenWorld.Image = global::NathanAlden.TextAdventure.Editor.IconResources.Open_16x;
-            this.toolStripMenuItemOpenWorld.Name = "toolStripMenuItemOpenWorld";
-            this.toolStripMenuItemOpenWorld.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
-            this.toolStripMenuItemOpenWorld.Size = new System.Drawing.Size(190, 22);
-            this.toolStripMenuItemOpenWorld.Text = "&Open World...";
+            toolStripMenuItemOpenWorld.Image = global::NathanAlden.TextAdventure.Editor.IconResources.Open_16x;
+            toolStripMenuItemOpenWorld.Name = "toolStripMenuItemOpenWorld";
+            toolStripMenuItemOpenWorld.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
+            toolStripMenuItemOpenWorld.Size = new System.Drawing.Size(190, 22);
+            toolStripMenuItemOpenWorld.Text = "&Open World...";
+            toolStripMenuItemOpenWorld.Click += new System.EventHandler(this.toolStripMenuItemOpenWorld_Click);
             // 
             // toolStripMenuItem1
             // 
@@ -126,6 +137,7 @@
             this.toolStripMenuItemCloseWorld.Name = "toolStripMenuItemCloseWorld";
             this.toolStripMenuItemCloseWorld.Size = new System.Drawing.Size(190, 22);
             this.toolStripMenuItemCloseWorld.Text = "&Close World";
+            this.toolStripMenuItemCloseWorld.Click += new System.EventHandler(this.toolStripMenuItemCloseWorld_Click);
             // 
             // toolStripMenuItem3
             // 
@@ -139,12 +151,14 @@
             this.toolStripMenuItemSaveWorld.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
             this.toolStripMenuItemSaveWorld.Size = new System.Drawing.Size(190, 22);
             this.toolStripMenuItemSaveWorld.Text = "&Save World";
+            this.toolStripMenuItemSaveWorld.Click += new System.EventHandler(this.toolStripMenuItemSaveWorld_Click);
             // 
             // toolStripMenuItemSaveWorldAs
             // 
             this.toolStripMenuItemSaveWorldAs.Name = "toolStripMenuItemSaveWorldAs";
             this.toolStripMenuItemSaveWorldAs.Size = new System.Drawing.Size(190, 22);
             this.toolStripMenuItemSaveWorldAs.Text = "Save World &As...";
+            this.toolStripMenuItemSaveWorldAs.Click += new System.EventHandler(this.toolStripMenuItemSaveWorldAs_Click);
             // 
             // toolStripMenuItem2
             // 
@@ -153,61 +167,65 @@
             // 
             // toolStripMenuItemExit
             // 
-            this.toolStripMenuItemExit.Name = "toolStripMenuItemExit";
-            this.toolStripMenuItemExit.ShortcutKeyDisplayString = "Alt+F4";
-            this.toolStripMenuItemExit.Size = new System.Drawing.Size(190, 22);
-            this.toolStripMenuItemExit.Text = "E&xit";
+            toolStripMenuItemExit.Name = "toolStripMenuItemExit";
+            toolStripMenuItemExit.ShortcutKeyDisplayString = "Alt+F4";
+            toolStripMenuItemExit.Size = new System.Drawing.Size(190, 22);
+            toolStripMenuItemExit.Text = "E&xit";
+            toolStripMenuItemExit.Click += new System.EventHandler(this.toolStripMenuItemExit_Click);
             // 
             // toolStripMenuItemWorld
             // 
             this.toolStripMenuItemWorld.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripMenuItemVariables});
+            toolStripMenuItemVariables});
             this.toolStripMenuItemWorld.Name = "toolStripMenuItemWorld";
             this.toolStripMenuItemWorld.Size = new System.Drawing.Size(51, 20);
             this.toolStripMenuItemWorld.Text = "&World";
             // 
             // toolStripMenuItemVariables
             // 
-            this.toolStripMenuItemVariables.Image = global::NathanAlden.TextAdventure.Editor.IconResources.VariableProperty_16x;
-            this.toolStripMenuItemVariables.Name = "toolStripMenuItemVariables";
-            this.toolStripMenuItemVariables.Size = new System.Drawing.Size(152, 22);
-            this.toolStripMenuItemVariables.Text = "&Variables...";
+            toolStripMenuItemVariables.Image = global::NathanAlden.TextAdventure.Editor.IconResources.VariableProperty_16x;
+            toolStripMenuItemVariables.Name = "toolStripMenuItemVariables";
+            toolStripMenuItemVariables.Size = new System.Drawing.Size(129, 22);
+            toolStripMenuItemVariables.Text = "&Variables...";
+            toolStripMenuItemVariables.Click += new System.EventHandler(this.toolStripMenuItemVariables_Click);
             // 
             // toolStripMenuItemTools
             // 
             toolStripMenuItemTools.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripMenuItemOptions});
+            toolStripMenuItemOptions});
             toolStripMenuItemTools.Name = "toolStripMenuItemTools";
             toolStripMenuItemTools.Size = new System.Drawing.Size(47, 20);
             toolStripMenuItemTools.Text = "&Tools";
             // 
             // toolStripMenuItemOptions
             // 
-            this.toolStripMenuItemOptions.Name = "toolStripMenuItemOptions";
-            this.toolStripMenuItemOptions.Size = new System.Drawing.Size(152, 22);
-            this.toolStripMenuItemOptions.Text = "&Options...";
+            toolStripMenuItemOptions.Name = "toolStripMenuItemOptions";
+            toolStripMenuItemOptions.Size = new System.Drawing.Size(125, 22);
+            toolStripMenuItemOptions.Text = "&Options...";
+            toolStripMenuItemOptions.Click += new System.EventHandler(this.toolStripMenuItemOptions_Click);
             // 
             // toolStripMenuItemHelp
             // 
             toolStripMenuItemHelp.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripMenuItemAbout});
+            toolStripMenuItemAbout});
             toolStripMenuItemHelp.Name = "toolStripMenuItemHelp";
             toolStripMenuItemHelp.Size = new System.Drawing.Size(44, 20);
             toolStripMenuItemHelp.Text = "&Help";
             // 
             // toolStripMenuItemAbout
             // 
-            this.toolStripMenuItemAbout.Name = "toolStripMenuItemAbout";
-            this.toolStripMenuItemAbout.Size = new System.Drawing.Size(152, 22);
-            this.toolStripMenuItemAbout.Text = "&About";
+            toolStripMenuItemAbout.Name = "toolStripMenuItemAbout";
+            toolStripMenuItemAbout.Size = new System.Drawing.Size(107, 22);
+            toolStripMenuItemAbout.Text = "&About";
+            toolStripMenuItemAbout.Click += new System.EventHandler(this.toolStripMenuItemAbout_Click);
             // 
             // toolStripFile
             // 
             toolStripFile.Dock = System.Windows.Forms.DockStyle.None;
             toolStripFile.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
             toolStripFile.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripButtonNewWorld,
-            this.toolStripButtonOpenWorld,
+            toolStripButtonNewWorld,
+            toolStripButtonOpenWorld,
             toolStripSeparator1,
             this.toolStripButtonSaveWorld});
             toolStripFile.Location = new System.Drawing.Point(3, 0);
@@ -218,21 +236,23 @@
             // 
             // toolStripButtonNewWorld
             // 
-            this.toolStripButtonNewWorld.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButtonNewWorld.Image = global::NathanAlden.TextAdventure.Editor.IconResources.Create_16x;
-            this.toolStripButtonNewWorld.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButtonNewWorld.Name = "toolStripButtonNewWorld";
-            this.toolStripButtonNewWorld.Size = new System.Drawing.Size(23, 22);
-            this.toolStripButtonNewWorld.ToolTipText = "New World";
+            toolStripButtonNewWorld.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            toolStripButtonNewWorld.Image = global::NathanAlden.TextAdventure.Editor.IconResources.Create_16x;
+            toolStripButtonNewWorld.ImageTransparentColor = System.Drawing.Color.Magenta;
+            toolStripButtonNewWorld.Name = "toolStripButtonNewWorld";
+            toolStripButtonNewWorld.Size = new System.Drawing.Size(23, 22);
+            toolStripButtonNewWorld.ToolTipText = "New World";
+            toolStripButtonNewWorld.Click += new System.EventHandler(this.toolStripButtonNewWorld_Click);
             // 
             // toolStripButtonOpenWorld
             // 
-            this.toolStripButtonOpenWorld.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButtonOpenWorld.Image = global::NathanAlden.TextAdventure.Editor.IconResources.Open_16x;
-            this.toolStripButtonOpenWorld.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButtonOpenWorld.Name = "toolStripButtonOpenWorld";
-            this.toolStripButtonOpenWorld.Size = new System.Drawing.Size(23, 22);
-            this.toolStripButtonOpenWorld.ToolTipText = "Open World";
+            toolStripButtonOpenWorld.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            toolStripButtonOpenWorld.Image = global::NathanAlden.TextAdventure.Editor.IconResources.Open_16x;
+            toolStripButtonOpenWorld.ImageTransparentColor = System.Drawing.Color.Magenta;
+            toolStripButtonOpenWorld.Name = "toolStripButtonOpenWorld";
+            toolStripButtonOpenWorld.Size = new System.Drawing.Size(23, 22);
+            toolStripButtonOpenWorld.ToolTipText = "Open World";
+            toolStripButtonOpenWorld.Click += new System.EventHandler(this.toolStripButtonOpenWorld_Click);
             // 
             // toolStripSeparator1
             // 
@@ -247,15 +267,17 @@
             this.toolStripButtonSaveWorld.Name = "toolStripButtonSaveWorld";
             this.toolStripButtonSaveWorld.Size = new System.Drawing.Size(23, 22);
             this.toolStripButtonSaveWorld.ToolTipText = "Save World";
+            this.toolStripButtonSaveWorld.Click += new System.EventHandler(this.toolStripButtonSaveWorld_Click);
             // 
             // toolStripButtonWorldVariables
             // 
-            this.toolStripButtonWorldVariables.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButtonWorldVariables.Image = global::NathanAlden.TextAdventure.Editor.IconResources.VariableProperty_16x;
-            this.toolStripButtonWorldVariables.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButtonWorldVariables.Name = "toolStripButtonWorldVariables";
-            this.toolStripButtonWorldVariables.Size = new System.Drawing.Size(23, 22);
-            this.toolStripButtonWorldVariables.ToolTipText = "Variables";
+            toolStripButtonWorldVariables.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            toolStripButtonWorldVariables.Image = global::NathanAlden.TextAdventure.Editor.IconResources.VariableProperty_16x;
+            toolStripButtonWorldVariables.ImageTransparentColor = System.Drawing.Color.Magenta;
+            toolStripButtonWorldVariables.Name = "toolStripButtonWorldVariables";
+            toolStripButtonWorldVariables.Size = new System.Drawing.Size(23, 22);
+            toolStripButtonWorldVariables.ToolTipText = "Variables";
+            toolStripButtonWorldVariables.Click += new System.EventHandler(this.toolStripButtonWorldVariables_Click);
             // 
             // toolStripContainer
             // 
@@ -283,10 +305,10 @@
             this.toolStripWorld.Dock = System.Windows.Forms.DockStyle.None;
             this.toolStripWorld.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
             this.toolStripWorld.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripButtonWorldVariables});
+            toolStripButtonWorldVariables});
             this.toolStripWorld.Location = new System.Drawing.Point(81, 0);
             this.toolStripWorld.Name = "toolStripWorld";
-            this.toolStripWorld.Size = new System.Drawing.Size(26, 25);
+            this.toolStripWorld.Size = new System.Drawing.Size(57, 25);
             this.toolStripWorld.TabIndex = 2;
             // 
             // WorldView
@@ -317,23 +339,13 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemExit;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemCloseWorld;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemSaveWorld;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemSaveWorldAs;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemNewWorld;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemAbout;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemOptions;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemOpenWorld;
-        private System.Windows.Forms.ToolStripButton toolStripButtonNewWorld;
-        private System.Windows.Forms.ToolStripButton toolStripButtonOpenWorld;
         private System.Windows.Forms.ToolStripButton toolStripButtonSaveWorld;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemVariables;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemWorld;
         private System.Windows.Forms.ToolStrip toolStripWorld;
         private System.Windows.Forms.ToolStripContainer toolStripContainer;
-        private System.Windows.Forms.ToolStripButton toolStripButtonWorldVariables;
     }
 }
 

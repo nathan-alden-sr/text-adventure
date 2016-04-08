@@ -6,16 +6,16 @@ namespace NathanAlden.TextAdventure.Editor.Controllers.World
 {
     public interface IWorldView : IView
     {
-        IObservable<EventPattern<FormClosingEventArgs>> ViewClosing { get; }
-        IObservable<EventPattern<object>> NewWorld { get; }
-        IObservable<EventPattern<object>> OpenWorld { get; }
-        IObservable<EventPattern<object>> CloseWorld { get; }
-        IObservable<EventPattern<object>> SaveWorld { get; }
-        IObservable<EventPattern<object>> SaveWorldAs { get; }
-        IObservable<EventPattern<object>> Exit { get; }
-        IObservable<EventPattern<object>> Variables { get; }
-        IObservable<EventPattern<object>> Options { get; }
-        IObservable<EventPattern<object>> About { get; }
+        IObservable<Unit> FileCloseWorldRequested { get; }
+        IObservable<Unit> FileExitRequested { get; }
+        IObservable<Unit> FileNewWorldRequested { get; }
+        IObservable<Unit> FileOpenWorldRequested { get; }
+        IObservable<Unit> FileSaveWorldAsRequested { get; }
+        IObservable<Unit> FileSaveWorldRequested { get; }
+        IObservable<Unit> HelpAboutRequested { get; }
+        IObservable<Unit> ToolsOptionsRequested { get; }
+        IObservable<FormClosingEventArgs> ViewClosing { get; }
+        IObservable<Unit> WorldVariablesRequested { get; }
 
         void ShowView();
         void CloseView();

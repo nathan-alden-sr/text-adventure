@@ -12,5 +12,8 @@ namespace NathanAlden.TextAdventure.Editor.Configuration
 
         [JsonProperty("worldVariables")]
         public WorldVariablesView WorldVariables { get; } = new WorldVariablesView();
+
+        [JsonProperty("worldVariable")]
+        public WorldVariableView WorldVariable { get; } = new WorldVariableView();
     }
 }

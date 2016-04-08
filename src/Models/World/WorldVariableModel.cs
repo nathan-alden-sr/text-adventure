@@ -13,7 +13,7 @@ namespace NathanAlden.TextAdventure.Models.World
 
         [JsonConverter(typeof(StringEnumConverter))]
         [JsonProperty("type")]
-        public string Type { get; set; }
+        public WorldVariableType Type { get; set; }
 
         [JsonProperty("value")]
         public object Value { get; set; }

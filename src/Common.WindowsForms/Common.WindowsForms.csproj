@@ -34,9 +34,14 @@
       <Link>Properties\CommonAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="BitmapExtensions.cs" />
+    <Compile Include="Controls\BindingComboBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Controls\PromptTextBox.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="DataBinding\SortableBindingList.cs" />
+    <Compile Include="DataBinding\PropertyComparer.cs" />
     <Compile Include="LabelExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TextBoxExtensions.cs" />
