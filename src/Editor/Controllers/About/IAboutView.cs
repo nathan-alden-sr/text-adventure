@@ -4,7 +4,7 @@ using System.Windows.Forms;
 
 namespace NathanAlden.TextAdventure.Editor.Controllers.About
 {
-    public interface IAboutView : IView
+    public interface IAboutView : IFormView
     {
         IObservable<Unit> GitHubNavigationRequested { get; }
 

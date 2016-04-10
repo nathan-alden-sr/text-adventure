@@ -4,7 +4,7 @@ using NathanAlden.TextAdventure.Editor.Controllers.WorldVariables;
 
 namespace NathanAlden.TextAdventure.Editor.Controllers.WorldVariable
 {
-    public interface IWorldVariableView : IView
+    public interface IWorldVariableView : IFormView
     {
         IObservable<FormClosingEventArgs> ViewClosing { get; }
 

@@ -4,7 +4,7 @@ using System.Windows.Forms;
 
 namespace NathanAlden.TextAdventure.Editor.Controllers.NewWorld
 {
-    public interface INewWorldView : IView
+    public interface INewWorldView : IFormView
     {
         IObservable<Unit> IdGenerationRequested { get; }
 

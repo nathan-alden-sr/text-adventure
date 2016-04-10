@@ -8,7 +8,7 @@ using NathanAlden.TextAdventure.Editor.Configuration;
 
 namespace NathanAlden.TextAdventure.Editor.Controllers
 {
-    public class FormView : Form, IView
+    public class FormView : Form, IFormView
     {
         [Browsable(false)]
         public Rectangle PersistentBounds => WindowState != FormWindowState.Normal ? RestoreBounds : Bounds;
@@ -41,7 +41,7 @@ namespace NathanAlden.TextAdventure.Editor.Controllers
             return MessageBox.Show(this, text, Constants.MessageBoxCaption);
         }
 
-        void IView.RestoreBounds(ViewBounds bounds, bool restoreLocation, bool restoreSize)
+        void IFormView.RestoreBounds(ViewBounds bounds, bool restoreLocation, bool restoreSize)
         {
             bounds.ThrowIfNull(nameof(bounds));
 

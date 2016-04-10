@@ -4,7 +4,7 @@ using System.Windows.Forms;
 
 namespace NathanAlden.TextAdventure.Editor.Controllers.World
 {
-    public interface IWorldView : IView
+    public interface IWorldView : IFormView
     {
         IObservable<Unit> FileCloseWorldRequested { get; }
         IObservable<Unit> FileExitRequested { get; }

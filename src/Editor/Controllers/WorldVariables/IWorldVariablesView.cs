@@ -5,7 +5,7 @@ using System.Windows.Forms;
 
 namespace NathanAlden.TextAdventure.Editor.Controllers.WorldVariables
 {
-    public interface IWorldVariablesView : IView
+    public interface IWorldVariablesView : IFormView
     {
         IObservable<Unit> NewRequested { get; }
         IObservable<WorldVariableViewModel> EditRequested { get; }

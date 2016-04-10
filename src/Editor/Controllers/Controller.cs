@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Linq;
 using Junior.Common.Net35;
 using NathanAlden.TextAdventure.Common;
-using NathanAlden.TextAdventure.Editor.Configuration;
 
 namespace NathanAlden.TextAdventure.Editor.Controllers
 {
@@ -61,15 +59,6 @@ namespace NathanAlden.TextAdventure.Editor.Controllers
         protected void AddDisposables(params IDisposable[] disposables)
         {
             AddDisposables((IEnumerable<IDisposable>)disposables);
-        }
-
-        protected void SaveViewBounds(ViewBounds bounds, bool writeLocation = true, bool writeSize = true)
-        {
-            bounds.ThrowIfNull(nameof(bounds));
-
-            bounds.Location = writeLocation ? View.PersistentBounds.Location : (Point?)null;
-            bounds.Size = writeSize ? View.PersistentBounds.Size : (Size?)null;
-            bounds.Maximized = View.Maximized;
         }
     }
 }

@@ -8,7 +8,7 @@ using NathanAlden.TextAdventure.Models.World;
 
 namespace NathanAlden.TextAdventure.Editor.Controllers.WorldVariable
 {
-    public class WorldVariableController : Controller<IWorldVariableView>, IWorldVariableController
+    public class WorldVariableController : FormController<IWorldVariableView>, IWorldVariableController
     {
         private readonly IConfigFile<Config> _configFile;
 

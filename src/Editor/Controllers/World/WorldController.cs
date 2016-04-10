@@ -16,7 +16,7 @@ using Newtonsoft.Json;
 
 namespace NathanAlden.TextAdventure.Editor.Controllers.World
 {
-    public class WorldController : Controller<IWorldView>, IWorldController
+    public class WorldController : FormController<IWorldView>, IWorldController
     {
         private static readonly string _dialogFilter = $"Text Adventure Worlds (*.{Constants.WorldFileExtension})|*.{Constants.WorldFileExtension}|All Files (*.*)|*.*";
         private readonly IConfigFile<Config> _configFile;

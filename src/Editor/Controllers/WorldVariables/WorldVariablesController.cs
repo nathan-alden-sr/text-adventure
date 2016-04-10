@@ -13,7 +13,7 @@ using NathanAlden.TextAdventure.Models.World;
 
 namespace NathanAlden.TextAdventure.Editor.Controllers.WorldVariables
 {
-    public class WorldVariablesController : Controller<IWorldVariablesView>, IWorldVariablesController
+    public class WorldVariablesController : FormController<IWorldVariablesView>, IWorldVariablesController
     {
         private readonly IConfigFile<Config> _configFile;
         private readonly IControllerFactory _controllerFactory;
