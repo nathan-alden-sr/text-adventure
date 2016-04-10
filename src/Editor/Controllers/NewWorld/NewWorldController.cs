@@ -63,6 +63,7 @@ namespace NathanAlden.TextAdventure.Editor.Controllers.NewWorld
                        },
                        Versions =
                        {
+                           FileFormat = "1.0",
                            World = _viewModel.Version
                        }
                    };
